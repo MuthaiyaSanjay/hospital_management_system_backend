@@ -1,0 +1,2211 @@
+openapi: 3.0.3
+info:
+  title: Hospital Management System
+  description: |-
+    This helps to manage the hospital
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: aravind@monkeeys.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: localhost:8080/hospital
+tags:
+  - name: Dashboard
+    description: Maganment
+    externalDocs:
+      description: Dashboard managements
+      url: http://swagger.io
+  - name: Doctor
+    description: Doctors management
+    externalDocs:
+      description: Doctors management
+      url: http://swagger.io
+  - name: Patients
+    description: Operations about patients
+  - name: Users
+    description: Operations about users
+  - name: Appointment
+    description: Operations about appointments
+  - name: PayRoll
+    description: Operations about Payroll
+  - name: Invoices
+    description: Operations about Invoices
+  - name: Payments
+    description: Operations about Payments
+  - name: BillingHistory
+    description: Operations about BillingHistory
+  - name: Role
+    description: Operations about Role
+  - name: Attendance
+    description: Operations about Attendance
+  - name: Health
+    description: Applicaiton health check
+paths:
+  /v1/api/health:
+    get:
+      tags:
+        - Health
+      summary: Health check endpoint
+      description: Returns the health status of the API service.
+      operationId: getHealth
+      responses:
+        '200':
+          description: Health check successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'UP'
+                  timestamp:
+                    type: string
+                    format: date-time
+                    example: '2024-08-04T00:00:00Z'
+        '500':
+          description: Internal server error
+  /v1/api/dashboard:
+    get:
+      tags:
+        - Dashboard
+      summary: Get summary details for logined user
+      description: Return the list values
+      operationId: getSummaryForLoginedUser
+      parameters:
+        - name: userId
+          in: query
+          description: User Id
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Summary'
+        '400':
+          description: Invalid user id
+  /v1/api/doctor:
+    post:
+      tags:
+        - Doctor
+      summary: Creation of new doctor
+      description: Return the list values
+      operationId: createNewDoctor
+      requestBody:
+        description: Update an existent pet in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Doctor'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Doctor'
+        '400':
+          description: Invalid user id
+    get:
+      tags:
+        - Doctor
+      summary: Get Doctors
+      description: Get doctors list by params
+      operationId: getDoctors
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          required: true
+          explode: true
+          schema:
+            type: number
+            default: 0
+        - name: count
+          in: query
+          description: Data count
+          required: true
+          explode: true
+          schema:
+            type: number
+            default: 5
+        - name: doctorId
+          in: query
+          description: Doctor Id
+          required: false
+          explode: true
+          schema:
+            type: number
+            default: 4598
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Doctor'
+        '400':
+          description: Invalid user id
+  /v1/api/doctor/{id}:
+    get:
+      tags:
+        - Doctor
+      summary: Creation of new doctor
+      description: Return the list values
+      operationId: getDoctorsById
+      parameters:
+        - name: id
+          in: path
+          description: User Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Doctor'
+        '400':
+          description: Invalid user id
+    put:
+      tags:
+        - Doctor
+      summary: Creation of new doctor
+      description: Return the list values
+      operationId: updateDoctor
+      requestBody:
+        description: Update an existent pet in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Doctor'
+        required: true
+      parameters:
+        - name: id
+          in: path
+          description: User Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Doctor'
+        '400':
+          description: Invalid user id
+    delete:
+      tags:
+        - Doctor
+      summary: Delete Operation
+      description: Return the list values
+      operationId: deleteDoctorsById
+      parameters:
+        - name: id
+          in: path
+          description: User Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Doctor removed successfully"
+        '400':
+          description: Invalid user id
+  /v1/api/patients:
+    post:
+      tags:
+        - Patients
+      summary: Creation of new patients
+      description: Return the list values
+      operationId: createNewPatients
+      requestBody:
+        description: Update an existent pet in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patients'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patients'
+        '400':
+          description: Invalid Patients id
+    get:
+      tags:
+        - Patients
+      summary: Get Patients
+      description: Get Patients list by params
+      operationId: getPatients
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          required: true
+          explode: true
+          schema:
+            type: number
+            default: 0
+        - name: count
+          in: query
+          description: Data count
+          required: true
+          explode: true
+          schema:
+            type: number
+            default: 5
+        - name: patientsId
+          in: query
+          description: Patients Id
+          required: false
+          explode: true
+          schema:
+            type: number
+            default: 4598
+        - name: phoneNumber
+          in: query
+          description: Patients Phone Number
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: 7010182967
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Patients'
+        '400':
+          description: Invalid user id
+  /v1/api/patients/{id}:
+    get:
+      tags:
+        - Patients
+      summary: Creation of new Patients
+      description: Return the list values
+      operationId: getPatientsById
+      parameters:
+        - name: id
+          in: path
+          description: User Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patients'
+        '400':
+          description: Invalid user id
+    put:
+      tags:
+        - Patients
+      summary: Creation of new patients
+      description: Return the list values
+      operationId: updatePatients
+      requestBody:
+        description: Update an existent Patients
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patients'
+        required: true
+      parameters:
+        - name: id
+          in: path
+          description: Patients Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patients'
+        '400':
+          description: Invalid Patients id
+    delete:
+      tags:
+        - Patients
+      summary: Delete Operation
+      description: Delete patients account
+      operationId: deletePatientsById
+      parameters:
+        - name: id
+          in: path
+          description: User Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Doctor removed successfully"
+        '400':
+          description: Invalid user id
+  /v1/api/user:
+    post:
+      tags:
+        - Users
+      summary: Creation of new User
+      description: Return the list values
+      operationId: createNewUser
+      requestBody:
+        description: User creation payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPayload'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPayload'
+        '400':
+          description: Invalid user id
+    get:
+      tags:
+        - Users
+      summary: Get Users
+      description: Get Users list by params
+      operationId: getUsers
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          required: true
+          explode: true
+          schema:
+            type: number
+            default: 0
+        - name: count
+          in: query
+          description: Data count
+          required: true
+          explode: true
+          schema:
+            type: number
+            default: 5
+        - name: userId
+          in: query
+          description: User Id
+          required: false
+          explode: true
+          schema:
+            type: number
+            default: 4598
+        - name: phoneNumber
+          in: query
+          description: User Phone Number
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: 7010182967
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserPayload'
+        '400':
+          description: Invalid user id
+  /v1/api/user/{id}:
+    get:
+      tags:
+        - Users
+      summary: Creation of new users
+      description: Return the list values
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          description: User Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPayload'
+        '400':
+          description: Invalid user id
+    put:
+      tags:
+        - Users
+      summary: Update users
+      description: Return the list values
+      operationId: updateUsers
+      requestBody:
+        description: Update an existent user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPayload'
+        required: true
+      parameters:
+        - name: id
+          in: path
+          description: User Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPayload'
+        '400':
+          description: Invalid UserPayload id
+    delete:
+      tags:
+        - Users
+      summary: Delete Operation
+      description: Delete User account
+      operationId: deleteUserById
+      parameters:
+        - name: id
+          in: path
+          description: User Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "User removed successfully"
+        '400':
+          description: Invalid user id
+  /v1/api/user/change-password/{id}:
+    get:
+      tags:
+        - Users
+      summary: Change password
+      description: Change password
+      operationId: changePassword
+      parameters:
+        - name: id
+          in: path
+          description: User Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+        - name: oldPassword
+          in: query
+          description: User old password
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+        - name: newPassword
+          in: query
+          description: User new password
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Password changed successfully"
+        '400':
+          description: Invalid user id
+  /v1/api/role:
+    post:
+      tags:
+        - Role
+      summary: Creation of new Role
+      description: Return the list values
+      operationId: createNewRole
+      requestBody:
+        description: Role creation payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Role'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        '400':
+          description: Invalid Role id
+    get:
+      tags:
+        - Role
+      summary: Get Roles
+      description: Get Users list by params
+      operationId: getRoles
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          required: true
+          explode: true
+          schema:
+            type: number
+            default: 0
+        - name: count
+          in: query
+          description: Data count
+          required: true
+          explode: true
+          schema:
+            type: number
+            default: 5
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Role'
+        '400':
+          description: Invalid Role id
+  /v1/api/role/{id}:
+    get:
+      tags:
+        - Role
+      summary: Creation of new Role
+      description: Return the list values
+      operationId: getRoleById
+      parameters:
+        - name: id
+          in: path
+          description: Role Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        '400':
+          description: Invalid user id
+    put:
+      tags:
+        - Role
+      summary: Update Role
+      description: Return the list values
+      operationId: updateRole
+      requestBody:
+        description: Update an existent Role
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Role'
+        required: true
+      parameters:
+        - name: id
+          in: path
+          description: Role Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        '400':
+          description: Invalid Role id
+    delete:
+      tags:
+        - Role
+      summary: Delete Operation
+      description: Delete Role account
+      operationId: deleteRoleById
+      parameters:
+        - name: id
+          in: path
+          description: Role Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "User removed successfully"
+        '400':
+          description: Invalid Role id
+  /v1/api/appointments:
+    post:
+      tags:
+        - Appointment
+      summary: Creation of new Appointment
+      description: Return the list values
+      operationId: bookAppointment
+      requestBody:
+        description: Appointment creation payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appointment'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        '400':
+          description: Invalid user id
+    get:
+      tags:
+        - Appointment
+      summary: Get Appointments
+      description: Get Appointment list by params
+      operationId: getAppointments
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          required: true
+          explode: true
+          schema:
+            type: number
+            default: 0
+        - name: count
+          in: query
+          description: Data count
+          required: true
+          explode: true
+          schema:
+            type: number
+            default: 5
+        - name: appointmentDate
+          in: query
+          description: ppointment Date in mm-dd-yyyy format
+          required: false
+          explode: true
+          schema:
+            type: string
+            format: date
+            example: '12-31-2024'
+        - name: patientId
+          in: query
+          description: Patient ID
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: 45689
+        - name: doctorId
+          in: query
+          description: Doctor ID
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: 45689
+        - name: phoneNumber
+          in: query
+          description: Patient Phone number
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: 45689
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Appointment'
+        '400':
+          description: Invalid user id
+  /v1/api/appointments/{id}:
+    get:
+      tags:
+        - Appointment
+      summary: Get appointment by id
+      description: Appoinment details
+      operationId: getAppoinmentById
+      parameters:
+        - name: id
+          in: path
+          description: Appoinment Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        '400':
+          description: Invalid Appointment id
+    put:
+      tags:
+        - Appointment
+      summary: Update Appointment
+      description: Update Appointment data
+      operationId: updateAppointment
+      requestBody:
+        description: Update an existent user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appointment'
+        required: true
+      parameters:
+        - name: id
+          in: path
+          description: Appointment Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        '400':
+          description: Invalid Appointment id
+    delete:
+      tags:
+        - Appointment
+      summary: Delete Appointment
+      description: Delete Appointment by id
+      operationId: deleteAppointmentById
+      parameters:
+        - name: id
+          in: path
+          description: Appointment Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Appointment removed successfully"
+        '400':
+          description: Invalid Appointment id
+  /v1/api/payroll:
+    post:
+      tags:
+        - PayRoll
+      summary: Creation of new Payroll
+      description: Return the list values
+      operationId: createPayrollForEmployee
+      requestBody:
+        description: Payroll creation payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayRoll'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayRoll'
+        '400':
+          description: Invalid Payroll
+  /v1/api/payroll/{id}:
+    get:
+      tags:
+        - PayRoll
+      summary: Get PayRoll by id
+      description: Appoinment details
+      operationId: getPayRollById
+      parameters:
+        - name: id
+          in: path
+          description: PayRoll Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayRoll'
+        '400':
+          description: Invalid Appointment id
+    put:
+      tags:
+        - PayRoll
+      summary: Update PayRoll
+      description: Update PayRoll data
+      operationId: updatePayRoll
+      requestBody:
+        description: Update an existent PayRoll
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayRoll'
+        required: true
+      parameters:
+        - name: id
+          in: path
+          description: PayRoll Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayRoll'
+        '400':
+          description: Invalid Appointment id
+    delete:
+      tags:
+        - PayRoll
+      summary: Delete PayRoll
+      description: Delete PayRoll by id
+      operationId: deletePayRollById
+      parameters:
+        - name: id
+          in: path
+          description: PayRoll Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "PayRoll removed successfully"
+        '400':
+          description: Invalid PayRoll id
+  /v1/api/payroll-dash-summary:
+    get:
+      tags:
+        - PayRoll
+      summary: Get PayRoll by id
+      description: Appoinment details
+      operationId: getPayRollSummaryForDash
+      parameters:
+        - name: id
+          in: query
+          description: Hospital Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayRollSummary'
+        '400':
+          description: Invalid Appointment id
+  /v1/api/payroll-leave-summary:
+    get:
+      tags:
+        - PayRoll
+      summary: Get Leave summary for all employees
+      description: Leave summary details
+      operationId: getPayRollLeaveSummaryDetails
+      parameters:
+        - name: id
+          in: query
+          description: Hospital Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+        - name: month
+          in: query
+          description: Month
+          required: true
+          explode: true
+          schema:
+            type: number
+            default: available
+        - name: year
+          in: query
+          description: Year
+          required: true
+          explode: true
+          schema:
+            type: number
+            default: available
+        - name: from
+          in: query
+          description: From Date
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+        - name: to
+          in: query
+          description: To Date
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayRollSummary'
+        '400':
+          description: Invalid Appointment id
+  /v1/api/payroll/by-employee/{id}:
+    get:
+      tags:
+        - PayRoll
+      summary: Get PayRoll by employee id
+      description: Appoinment details
+      operationId: getPayRollByEmployeeId
+      parameters:
+        - name: id
+          in: path
+          description: Employee Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayRoll'
+        '400':
+          description: Invalid employee id
+  /v1/api/payroll/generate:
+    post:
+      tags:
+        - PayRoll
+      summary: Creation of new Payroll History
+      description: Return the list values
+      operationId: createPayRollGenerationHistory
+      requestBody:
+        description: Payroll creation payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayRollGenerationHistory'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayRollGenerationHistory'
+        '400':
+          description: Invalid Payroll
+    get:
+      tags:
+        - PayRoll
+      summary: Payroll generation
+      description: Payroll generation
+      operationId: generatePayRollForEmployees
+      parameters:
+        - name: month
+          in: query
+          description: Payroll month
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+        - name: year
+          in: query
+          description: Payroll year
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayRollGenerationHistory'
+        '400':
+          description: Invalid request
+  /v1/api/invoices:
+    post:
+      tags:
+        - Invoices
+      summary: Creation of new invoices
+      description: Return the list values
+      operationId: createInvoices
+      requestBody:
+        description: Payroll creation Invoices
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Invoices'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoices'
+        '400':
+          description: Invalid Payroll
+    get:
+      tags:
+        - Invoices
+      summary: Get Invoices
+      description: Get Invoices list by params
+      operationId: getInvoices
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          required: true
+          explode: true
+          schema:
+            type: number
+            default: 0
+        - name: count
+          in: query
+          description: Data count
+          required: true
+          explode: true
+          schema:
+            type: number
+            default: 5
+        - name: month
+          in: query
+          description: Month of invoice
+          required: false
+          explode: true
+          schema:
+            type: string
+            format: date
+            example: JAN
+        - name: year
+          in: query
+          description: invoice year
+          required: false
+          explode: true
+          schema:
+            type: integer
+            default: 45689
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Invoices'
+        '400':
+          description: Invalid user id
+  /v1/api/invoices/{id}:
+    get:
+      tags:
+        - Invoices
+      summary: Get Invoices by id
+      description: Appoinment details
+      operationId: getInvoicesById
+      parameters:
+        - name: id
+          in: path
+          description: Invoices Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayRoll'
+        '400':
+          description: Invalid Invoices id
+    put:
+      tags:
+        - Invoices
+      summary: Update Invoices
+      description: Update Invoices data
+      operationId: updateInvoices
+      requestBody:
+        description: Update an existent Invoices
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Invoices'
+        required: true
+      parameters:
+        - name: id
+          in: path
+          description: PayRoll Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoices'
+        '400':
+          description: Invalid Invoices id
+    delete:
+      tags:
+        - Invoices
+      summary: Delete Invoices
+      description: Delete Invoices by id
+      operationId: deleteInvoicesById
+      parameters:
+        - name: id
+          in: path
+          description: Invoices Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Invoices removed successfully"
+        '400':
+          description: Invalid Invoices id
+  /v1/api/payments:
+    post:
+      tags:
+        - Payments
+      summary: Creation of new Payments
+      description: Return the list values
+      operationId: createPayments
+      requestBody:
+        description: Payroll creation Payments
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Payments'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payments'
+        '400':
+          description: Invalid Payments
+    patch:
+      tags:
+        - Payments
+      summary: Creation of new Payments
+      description: Return the list values
+      operationId: createPatchPayments
+      requestBody:
+        description: Payroll patch creation payments
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Payments'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payments'
+        '400':
+          description: Invalid Payments
+    get:
+      tags:
+        - Payments
+      summary: Get Payments
+      description: Get Payments list by params
+      operationId: getPayments
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          required: true
+          explode: true
+          schema:
+            type: number
+            default: 0
+        - name: count
+          in: query
+          description: Data count
+          required: true
+          explode: true
+          schema:
+            type: number
+            default: 5
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Doctor'
+        '400':
+          description: Invalid user id
+  /v1/api/payments/{id}:
+    get:
+      tags:
+        - Payments
+      summary: Get Payments by id
+      description: Payments details
+      operationId: getPaymentsById
+      parameters:
+        - name: id
+          in: path
+          description: Invoices Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payments'
+        '400':
+          description: Invalid Payments id
+    put:
+      tags:
+        - Payments
+      summary: Update Payments
+      description: Update Payments data
+      operationId: updatePayments
+      requestBody:
+        description: Update an existent Payments
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Payments'
+        required: true
+      parameters:
+        - name: id
+          in: path
+          description: Payments Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payments'
+        '400':
+          description: Invalid Payments id
+    delete:
+      tags:
+        - Payments
+      summary: Delete Payments
+      description: Delete Payments by id
+      operationId: deletePaymentsById
+      parameters:
+        - name: id
+          in: path
+          description: Payments Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Payments removed successfully"
+        '400':
+          description: Invalid Payments id
+  /v1/api/payments/by-invoice:
+    get:
+      tags:
+        - Payments
+      summary: Get Payments by invoice id
+      description: Get invoice list by params
+      operationId: getPaymentsByInvoice
+      parameters:
+        - name: invoice id
+          in: query
+          description: INvoice number
+          required: true
+          explode: true
+          schema:
+            type: number
+            default: 0
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payments'
+        '400':
+          description: Invalid user id
+  /v1/api/billing-history/{id}:
+    get:
+      tags:
+        - BillingHistory
+      summary: Get BillingHistory by id
+      description: BillingHistory details
+      operationId: getBillingHistoryByInvoiceId
+      parameters:
+        - name: id
+          in: path
+          description: Invoices Id
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BillingHistory'
+        '400':
+          description: Invalid invoice id
+  /v1/api/attendance/holidays:
+    get:
+      tags:
+        - Attendance
+      summary: Get all holidays
+      description: Get holdiay details
+      operationId: getHolidayDetails
+      responses:
+        '200':
+          description: A list of holidays
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HolidayConfiguration'
+    post:
+      tags:
+        - Attendance
+      description: Create holdiay details
+      operationId: createHolidayDetails
+      summary: Create a holiday
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HolidayConfiguration'
+      responses:
+        '201':
+          description: Created
+  /v1/api/attendance/leave-allocations/user:
+    get:
+      tags:
+        - Attendance
+      summary: Get leave allocation for a user
+      description: Appoinment details
+      operationId: getLeaveAllicationByUser
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description:  leave allocation of user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaveAllocation'
+    post:
+      tags:
+        - Attendance
+      description: Allocate leave for users
+      operationId: createLeaveAllcoationForUsers
+      summary: Allocate leave
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeaveAllocation'
+      responses:
+        '201':
+          description: Created
+  /v1/api/attendance/leave-applications:
+    get:
+      tags:
+        - Attendance
+      description: Get all leave applications
+      operationId: getLeaveApplicaitons
+      summary: Get all leave applications
+      responses:
+        '200':
+          description: A list of leave applications
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LeaveApplication'
+    post:
+      tags:
+        - Attendance
+      description: Apply for leave
+      operationId: applyLeave
+      summary: Apply for leave
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeaveApplication'
+      responses:
+        '201':
+          description: Created
+  /v1/api/attendance/leave-applications/{id}:
+    get:
+      tags:
+        - Attendance
+      description: Get leave application by ID
+      operationId: getLeaveDetailsById
+      summary: Get leave application by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Leave application details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaveApplication'
+  /v1/api/attendance/leave-approvals/{leaveApplicationId}:
+    post:
+      tags:
+        - Attendance
+      description: Approve leave
+      operationId: approveLeave
+      summary: Approve leave
+      parameters:
+        - in: path
+          name: leaveApplicationId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeaveApproval'
+      responses:
+        '201':
+          description: Created
+  /v1/api/attendance/checkin/{userId}:
+    post:
+      tags:
+        - Attendance
+      description: Check-in for the day
+      operationId: checkIn
+      summary: Check-in for the day
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Check-in recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckInCheckOut'
+  /v1/api/attendance/checkout/{userId}:
+    post:
+      tags:
+        - Attendance
+      description: Check-out for the day
+      operationId: checkOut
+      summary: Check-out for the day
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Check-out recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckInCheckOut'
+  /v1/api/attendance/{userId}:
+    get:
+      tags:
+        - Attendance
+      description: Get check-in and check-out details
+      operationId: getCheckInAndOutDetails
+      summary: Get check-in and check-out details
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: date
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Check-in and check-out details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckInCheckOut'
+components:
+  schemas:
+    Summary:
+      type: object
+      properties:
+        total_doctors:
+          type: integer
+          format: int64
+          example: 10
+        total_patients:
+          type: integer
+          format: int64
+          example: 10
+        current_month_cxpense:
+          type: number
+          example: 15963.50
+        pending_payaments:
+          type: number
+          example: 10
+    UserPayload:
+      type: object
+      properties:
+        user_id:
+          type: string
+          example: fb17eecf-5ec6-4c13-a5bd-5ce1451472d0
+        basic_info:
+          $ref: '#/components/schemas/UserBasiInfo'
+        contact:
+          $ref: '#/components/schemas/Contact'
+    UserBasiInfo:
+      type: object
+      properties:
+        user_id:
+          type: string
+          example: fb17eecf-5ec6-4c13-a5bd-5ce1451472d0
+        first_name:
+          type: string
+          example: Sastika
+        last_name:
+          type: string
+          example: Aravind
+        role:
+          $ref: '#/components/schemas/Role'
+        gender:
+          type: string
+          example: Male
+          enum:
+            - Male
+            - FeMale
+            - Others
+        employment_details:
+          $ref: '#/components/schemas/EmploymentDetails'
+    Address:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 4acd0b30-0ac1-4d0f-938b-c7b86d804375
+        address_category:
+          type: string
+          example: Personal
+          enum:
+            - CURRENT
+            - OFFICE
+            - PERMANENT
+        country:
+          type: string
+          example: India
+        state:
+          type: string
+          example: Tamilnadu
+        city:
+          type: string
+          example: Coimabtore
+        street:
+          type: string
+          example: 121,Balaji Nagar
+        pin:
+          type: string
+          example: 624601
+        geo_location:
+          type: string
+          example: India
+    Contact:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 4acd0b30-0ac1-4d0f-938b-c7b86d804375
+        address:
+          $ref: '#/components/schemas/Address'
+        phone:
+          type: string
+          example: 7010192967
+        email:
+          type: string
+          example: aravind@gmail.com
+    ProfessionalInformation:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 4acd0b30-0ac1-4d0f-938b-c7b86d804375
+        medical_license_number:
+          type: string
+          example: 8975469532
+          description: Only required for doctors
+        years_of_experience:
+          type: number
+          example: 10.6
+        qualifications:
+          type: string
+          example: MBBS.MS
+    Doctor:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 4acd0b30-0ac1-4d0f-938b-c7b86d804375
+        basic_info:
+          $ref: '#/components/schemas/UserBasiInfo'
+        contact:
+          $ref: '#/components/schemas/Contact'
+        professional_information:
+          $ref: '#/components/schemas/ProfessionalInformation'
+    Patients:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 4acd0b30-0ac1-4d0f-938b-c7b86d804375
+        basic_info:
+          $ref: '#/components/schemas/UserBasiInfo'
+        contact:
+          $ref: '#/components/schemas/Contact'
+    Appointment:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 4acd0b30-0ac1-4d0f-938b-c7b86d804375
+        appointment_date:
+          type: string
+          format: date-time
+          pattern: "^(\\d{4})-(\\d{2})-(\\d{2})T((\\d{2}):(\\d{2}):(\\d{2}))\\.(\\d{3})Z$"
+          description: "Appointment Booking Date"
+          example: "2024-11-05T00:00:00Z"
+        appointment_time:
+          type: string
+          example: "10:00 AM"
+        patient:
+          $ref: '#/components/schemas/Patients'
+        doctor:
+          $ref: '#/components/schemas/Doctor'
+    Role:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 4acd0b30-0ac1-4d0f-938b-c7b86d804375
+        name:
+          type: string
+          example: ROLE_USER
+        description:
+          type: string
+          example: "User role"
+    EmploymentDetails:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 4acd0b30-0ac1-4d0f-938b-c7b86d804375
+        joining_date:
+          type: string
+          format: date-time
+          pattern: "^(\\d{4})-(\\d{2})-(\\d{2})T((\\d{2}):(\\d{2}):(\\d{2}))\\.(\\d{3})Z$"
+          description: "User joining date."
+          example: "2024-11-05T00:00:00Z"
+        relieving_date:
+          type: string
+          format: date-time
+          pattern: "^(\\d{4})-(\\d{2})-(\\d{2})T((\\d{2}):(\\d{2}):(\\d{2}))\\.(\\d{3})Z$"
+          description: "User joining date."
+          example: "2024-11-05T00:00:00Z"
+        department:
+          type: string
+          example: "CLINIC_STAFF"
+        salary:
+          type: number
+          example: 18500
+        payroll:
+          $ref: '#/components/schemas/PayRoll'
+    PayRoll:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 4acd0b30-0ac1-4d0f-938b-c7b86d804375
+        user:
+          $ref: '#/components/schemas/UserBasiInfo'
+        payment_date:
+          type: string
+          format: date-time
+          pattern: "^(\\d{4})-(\\d{2})-(\\d{2})T((\\d{2}):(\\d{2}):(\\d{2}))\\.(\\d{3})Z$"
+          description: "Appointment Booking Date"
+          example: "2024-11-05T00:00:00Z"
+        gross_amount:
+          type: number
+          format: float
+        deductions:
+          type: number
+          format: float
+        net_amount:
+          type: number
+          format: float
+    PayRollSummary:
+      type: object
+      properties:
+        total_amount:
+          type: number
+          example: 10
+        salary_per_month:
+          type: number
+          format: float
+          example: 12563.58
+        gradWise:
+          type: array
+          items:
+            $ref: '#/components/schemas/GradeWiseSummary'
+    PayRollGenerationHistory:
+      type: object
+      properties:
+        emp_id:
+          type: string
+          example: 4acd0b30-0ac1-4d0f-938b-c7b86d804375
+        emp_name:
+          type: string
+          example: aravind
+        leave:
+          type: integer
+          example: 10
+        cross_salary:
+          type: number
+          example: 15000.63
+        deductions:
+          type: number
+          example: 1596.32
+        deduction_summary:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeductionSummary'
+        net_salary:
+          type: number
+          example: 14899.90
+        status:
+          type: string
+          example: APPROVED
+          enum:
+            - APPROVED
+            - REJECTED
+    GradeWiseSummary:
+      type: object
+      properties:
+        role:
+          type: string
+          example: role_name
+        count:
+          type: number
+          example: 10
+    Invoices:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 4acd0b30-0ac1-4d0f-938b-c7b86d804375
+        invoice_date:
+          type: string
+          format: date-time
+          pattern: "^(\\d{4})-(\\d{2})-(\\d{2})T((\\d{2}):(\\d{2}):(\\d{2}))\\.(\\d{3})Z$"
+          description: "Invoice Date"
+          example: "2024-11-05T00:00:00Z"
+        total_amount:
+          type: number
+          format: float
+          example: 78965
+        deductions:
+          type: number
+          example: 1596.32
+        deduction_summary:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeductionSummary'
+        notes:
+          type: string
+          example: invoice for the employees salary
+        reference_id:
+          type: number
+          example: 158
+          description: user id or reference id of the table based on the type.If payroll its mean payroll history id other wise user id(vendor).
+        receiver_name:
+          type: string
+          example: aravind
+        invoice_reference_type:
+          type: string
+          example: PAYROLL
+          enum:
+            - PAYROLL
+            - EXPENSES
+            - PURCHASE
+            - SALES
+            - BILL
+            - OTHERS
+        status:
+          type: string
+          example: UN_PAID
+          enum:
+            - UN_PAID
+            - PAID
+            - PROCESSING
+    Payments:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 4acd0b30-0ac1-4d0f-938b-c7b86d804375
+        invoice_id:
+          type: number
+          example: 158
+        payment_due_date:
+          type: string
+          format: date-time
+          pattern: "^(\\d{4})-(\\d{2})-(\\d{2})T((\\d{2}):(\\d{2}):(\\d{2}))\\.(\\d{3})Z$"
+          description: "Invoice Date"
+          example: "2024-11-05T00:00:00Z"
+        payment_date:
+          type: string
+          format: date-time
+          pattern: "^(\\d{4})-(\\d{2})-(\\d{2})T((\\d{2}):(\\d{2}):(\\d{2}))\\.(\\d{3})Z$"
+          description: "Invoice Date"
+          example: "2024-11-05T00:00:00Z"
+        amount:
+          type: number
+          format: float
+          example: 78965
+        status:
+          type: string
+          example: UN_PAID
+          enum:
+            - UN_PAID
+            - PAID
+            - PROCESSING
+    BillingHistory:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 4acd0b30-0ac1-4d0f-938b-c7b86d804375
+        invoice_id:
+          type: number
+          example: 158
+        change_date:
+          type: string
+          format: date-time
+          pattern: "^(\\d{4})-(\\d{2})-(\\d{2})T((\\d{2}):(\\d{2}):(\\d{2}))\\.(\\d{3})Z$"
+          description: "Invoice Date"
+          example: "2024-11-05T00:00:00Z"
+        status:
+          type: string
+          example: UN_PAID
+          enum:
+            - UN_PAID
+            - PAID
+            - PROCESSING
+    DeductionSummary:
+      type: object
+      properties:
+        reason:
+          type: string
+          example: TDS
+        amount:
+          type: number
+          example: 1800.30
+    HolidayConfiguration:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        date:
+          type: string
+          format: date
+        description:
+          type: string
+    LeaveAllocation:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        user_id:
+          type: integer
+          format: int64
+        allocation_type:
+          type: string
+          example: EACH_MONTH
+          enum:
+            - EACH_MONTH
+            - EACH_YEAR
+        allocated_days:
+          type: number
+    LeaveApplication:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        user_id:
+          type: integer
+          format: int64
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        reason:
+          type: string
+        status:
+          type: string
+          enum: [PENDING, APPROVED, REJECTED]
+    LeaveApproval:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        leave_application_id:
+          type: integer
+          format: int64
+        approver_id:
+          type: integer
+          format: int64
+        approval_date:
+          type: string
+          format: date
+        status:
+          type: string
+          enum: [PENDING, APPROVED, REJECTED]
+        comments:
+          type: string
+    CheckInCheckOut:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+        date:
+          type: string
+          format: date
+        check_in_time:
+          type: string
+          format: time
+        check_out_time:
+          type: string
+          format: time
+          
+        
+      
+      

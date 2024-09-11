@@ -1,0 +1,98 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.2'
+	id 'io.spring.dependency-management' version '1.1.6'
+	id 'org.openapi.generator' version '6.0.0'
+}
+
+group = 'com.eagle'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'jakarta.servlet:jakarta.servlet-api:5.0.0'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'javax.validation:validation-api:2.0.0.Final'
+	implementation 'io.swagger.core.v3:swagger-annotations:2.2.22'
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.17.2'
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.6.0'
+
+	
+	/**Other Jars*****/
+	implementation 'org.postgresql:postgresql:42.5.4'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.modelmapper:modelmapper:2.3.8'
+
+
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+task generateOpenApi(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+	generatorName = 'spring'
+	inputSpec = "$projectDir/src/main/resources/openapi.yaml"
+	outputDir = "$projectDir/generated"
+	apiPackage = 'com.medicare.api'
+	modelPackage = 'com.medicare.model'
+	invokerPackage = 'com.medicare.invoker'
+	configOptions = [
+			dateLibrary: 'java17',
+			interfaceOnly: 'true',
+			delegatePattern: 'true',
+			useSwaggerUI: 'true',
+			modelNameSuffix: 'DTO',
+			notNullJacksonAnnotation: 'false',
+			groupId: 'com.medicare',
+			useTags: 'true'
+	]
+}
+
+task replaceImports {
+	doLast {
+		def generatedDir = file("$projectDir/generated/src/main/java")
+		generatedDir.eachFileRecurse { file ->
+			if (file.name.endsWith('.java')) {
+				def text = file.text
+				text = text.replaceAll('import javax.servlet.http.HttpServletResponse;', 'import jakarta.servlet.http.HttpServletResponse;')
+				text = text.replaceAll('import javax.annotation.Generated;', 'import jakarta.annotation.Generated;')
+				text = text.replaceAll('import org.openapitools.jackson.nullable.JsonNullable;', '')
+				file.text = text
+			}
+		}
+	}
+}
+
+
+
+
+compileJava {
+	dependsOn generateOpenApi
+	dependsOn replaceImports
+}
+
+sourceSets {
+	main {
+		java {
+			srcDir "$projectDir/generated/src/main/java"
+		}
+	}
+}
+
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}

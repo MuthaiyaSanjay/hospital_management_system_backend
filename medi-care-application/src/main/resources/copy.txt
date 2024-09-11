@@ -1,0 +1,609 @@
+package com.medicare.service;
+
+import com.medicare.entity.*;
+import com.medicare.model.*;
+import com.medicare.repository.*;
+import jakarta.persistence.EntityNotFoundException;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.validation.Valid;
+import java.util.Optional;
+
+@Service
+public class DoctorService {
+
+    @Autowired
+    private DoctorRepo doctorRepo;
+
+    @Autowired
+    private ContactRepo contactRepo;
+
+    @Autowired
+    private AddressRepo addressRepo;
+
+    @Autowired
+    private UserBasicInfoRepo userBasicInfoRepo;
+
+    @Autowired
+    private RoleRepo roleRepo;
+
+    @Autowired
+    private EmploymentDetailsRepo employmentDetailsRepo;
+
+    @Autowired
+    private PayRollRepo payRollRepo;
+
+    @Autowired
+    private ProfessionalInformationRepo professionalInformationRepo;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    public Doctor saveDoctor(Doctor doctor) {
+        System.out.println("Enter into the doctor service");
+        DoctorEntity doctorEntity = modelMapper.map(doctor, DoctorEntity.class);
+        UserBasicInfoEntity user = dtoToEntity(doctor.getBasicInfo());
+        roleRepo.save(user.getRole());
+        payRollRepo.save(user.getEmploymentDetails().getPayroll());
+        employmentDetailsRepo.save(user.getEmploymentDetails());
+        userBasicInfoRepo.save(user);
+        user.setEmploymentDetails(user.getEmploymentDetails());
+        user.setRole(user.getRole());
+        user.getEmploymentDetails().setPayroll(user.getEmploymentDetails().getPayroll());
+        doctorEntity.setBasicInfo(user);
+
+        if (doctorEntity.getProfessionalInformation() != null) {
+            ProfessionalInformationEntity professionalInfoEntity = doctorEntity.getProfessionalInformation();
+            professionalInfoEntity = professionalInformationRepo.save(professionalInfoEntity);
+            doctorEntity.setProfessionalInformation(professionalInfoEntity);
+        }
+        if (doctorEntity.getContact() != null) {
+            ContactEntity contactEntity = doctorEntity.getContact();
+            if (contactEntity.getAddress() != null) {
+                AddressEntity addressEntity = contactEntity.getAddress();
+                addressEntity = addressRepo.save(addressEntity);
+                contactEntity.setAddress(addressEntity);
+            }
+            contactEntity = contactRepo.save(contactEntity);
+            doctorEntity.setContact(contactEntity);
+        }
+        DoctorEntity savedDoctorEntity = doctorRepo.save(doctorEntity);
+        Doctor responseDoctor = modelMapper.map(savedDoctorEntity, Doctor.class);
+        return responseDoctor;
+    }
+
+    private UserBasicInfoEntity dtoToEntity(@Valid UserBasiInfo basicInfo) {
+        UserBasicInfoEntity userBasicEntity = new UserBasicInfoEntity();
+
+        userBasicEntity.setFirstName(basicInfo.getFirstName());
+        userBasicEntity.setLastName(basicInfo.getLastName());
+
+        // Check and initialize RoleEntity
+        if (basicInfo.getRole() != null) {
+            RoleEntity roleEntity = new RoleEntity();
+            roleEntity.setDescription(basicInfo.getRole().getDescription());
+            roleEntity.setName(basicInfo.getRole().getName());
+            userBasicEntity.setRole(roleEntity);
+        }
+
+        userBasicEntity.setGender(GenderEnum.valueOf(basicInfo.getGender().name()));
+
+        // Check and initialize EmploymentDetailsEntity
+        if (basicInfo.getEmploymentDetails() != null) {
+            EmploymentDetailsEntity employmentDetailsEntity = new EmploymentDetailsEntity();
+            employmentDetailsEntity.setJoiningDate(basicInfo.getEmploymentDetails().getJoiningDate());
+            employmentDetailsEntity.setRelievingDate(basicInfo.getEmploymentDetails().getRelievingDate());
+            employmentDetailsEntity.setDepartment(basicInfo.getEmploymentDetails().getDepartment());
+            employmentDetailsEntity.setSalary(basicInfo.getEmploymentDetails().getSalary());
+
+            // Check and initialize PayRollEntity
+            if (basicInfo.getEmploymentDetails().getPayroll() != null) {
+                PayRollEntity payrollEntity = new PayRollEntity();
+                payrollEntity.setDeductions(basicInfo.getEmploymentDetails().getPayroll().getDeductions());
+                payrollEntity.setPaymentDate(basicInfo.getEmploymentDetails().getPayroll().getPaymentDate());
+                payrollEntity.setGrossAmount(basicInfo.getEmploymentDetails().getPayroll().getGrossAmount());
+                payrollEntity.setNetAmount(basicInfo.getEmploymentDetails().getPayroll().getNetAmount());
+                employmentDetailsEntity.setPayroll(payrollEntity);
+            }
+            userBasicEntity.setEmploymentDetails(employmentDetailsEntity);
+        }
+        return userBasicEntity;
+    }
+
+    public Doctor getDoctorsById(long doctorId) {
+    Optional<DoctorEntity> optionalDoctor = doctorRepo.findById(doctorId);
+
+    if (!optionalDoctor.isPresent()) {
+        throw new EntityNotFoundException("Doctor not found with id: " + doctorId);
+    }
+
+    DoctorEntity doctor = optionalDoctor.get();
+    Doctor doc = new Doctor();
+
+    UserBasicInfoEntity user = doctor.getBasicInfo();
+    if (user == null) {
+        throw new IllegalStateException("UserBasicInfoEntity is null for doctor with id: " + doctorId);
+    }
+    EmploymentDetailsEntity employmentDetails = user.getEmploymentDetails();
+    if (employmentDetails == null) {
+        throw new IllegalStateException("EmploymentDetailsEntity is null for user of doctor with id: " + doctorId);
+    }
+    PayRollEntity payRoll = employmentDetails.getPayroll();
+
+    if (doc.getBasicInfo() == null) {
+        doc.setBasicInfo(new UserBasiInfo());
+    }
+    doc.setId(optionalDoctor.get().getId().toString());
+    doc.getBasicInfo().setEmploymentDetails(modelMapper.map(employmentDetails, EmploymentDetails.class));
+    doc.getBasicInfo().getEmploymentDetails().setPayroll(modelMapper.map(payRoll, PayRoll.class));
+    doc.setBasicInfo(modelMapper.map(user, UserBasiInfo.class));
+    doc.setProfessionalInformation(modelMapper.map(optionalDoctor.get().getProfessionalInformation(), ProfessionalInformation.class));
+    doc.setContact(modelMapper.map(optionalDoctor.get().getContact(), Contact.class));
+    System.out.println("values " + doc);
+    return doc;
+}
+
+
+    public void deleteDoctorId(long doctorId) {
+        userBasicInfoRepo.deleteById(doctorId);
+        Optional<UserBasicInfoEntity> doctor = userBasicInfoRepo.findById(doctorId);
+        System.out.println(" doctors "+doctor);
+    }
+}
+
+
+json
+
+
+{
+    "id": "1",
+    "basic_info": {
+        "user_id": "1",
+        "first_name": "John",
+        "last_name": "Doe",
+        "role": {
+            "id": "1",
+            "name": "Doctor",
+            "description": "Medical professional"
+        },
+        "gender": "Male",
+        "employment_details": {
+            "id": "1",
+            "joining_date": "2023-01-15T09:00:00.000+00:00",
+            "relieving_date": "2024-08-01T17:00:00.000+00:00",
+            "department": "Cardiology",
+            "salary": 75000.00,
+            "payroll": {
+                "id": "1",
+                "user": null,
+                "payment_date": "2023-01-15T09:00:00.000+00:00",
+                "gross_amount": 25000.0,
+                "deductions": 37000.0,
+                "net_amount": 75000.0
+            }
+        }
+    },
+    "contact": {
+        "id": "1",
+        "address": {
+            "id": "1",
+            "address_category": "CURRENT",
+            "country": "India",
+            "state": "Tamilnadu",
+            "city": "Coimbatore",
+            "street": "121, Balaji Nagar",
+            "pin": "624601",
+            "geo_location": "10.123456, 77.123456"
+        },
+        "phone": "1234567890",
+        "email": "john.doe@example.com"
+    },
+    "professional_information": {
+        "id": "1",
+        "medical_license_number": "8975469532",
+        "years_of_experience": 10.60,
+        "qualifications": "MBBS, MS"
+    }
+}
+
+
+jsons for example recent
+
+{
+    "basic_info": {
+        "first_name": "Thalapathy",
+        "last_name": "Vijay",
+        "role": {
+            "name": "Patient",
+            "description": "Medical professional"
+        },
+        "gender": "Male",
+        "employment_details": {
+            "joining_date": "2023-01-15T09:00:00Z",
+            "relieving_date": "2024-08-01T17:00:00Z",
+            "department": "Cardiology",
+            "salary": 75000.00,
+            "payroll": {
+                "payment_date": "2023-01-15T09:00:00Z",
+                "gross_amount": 25000.00,
+                "deductions": 37000.00,
+                "net_amount": 75000.00
+            }
+        }
+    },
+    "contact": {
+        "address": {
+            "address_category": "CURRENT",
+            "country": "India",
+            "state": "Tamilnadu",
+            "street": "121, Balaji Nagar",
+            "city": "Coimbatore",
+            "pin": "624601",
+            "geo_location": "10.123456, 77.123456"
+        },
+        "phone": "1234567890",
+        "email": "john.doe@example.com"
+    },
+    "professional_information": {
+        "medical_license_number": "12345",
+        "years_of_experience": 10.6,
+        "qualifications": "MBBS, MS"
+    }
+}
+{
+    "basic_info": {
+        "first_name": "Rajesh",
+        "last_name": "Kumar",
+        "role": {
+            "name": "Doctor",
+            "description": "Healthmedicare provider"
+        },
+        "gender": "Male",
+        "employment_details": {
+            "joining_date": "2022-03-10T08:00:00Z",
+            "relieving_date": "2025-06-30T18:00:00Z",
+            "department": "Orthopedics",
+            "salary": 95000.00,
+            "payroll": {
+                "payment_date": "2022-03-10T08:00:00Z",
+                "gross_amount": 30000.00,
+                "deductions": 5000.00,
+                "net_amount": 25000.00
+            }
+        }
+    },
+    "contact": {
+        "address": {
+            "address_category": "CURRENT",
+            "country": "India",
+            "state": "Delhi",
+            "street": "45, Green Park",
+            "city": "New Delhi",
+            "pin": "110016",
+            "geo_location": "28.613939, 77.209021"
+        },
+        "phone": "9876543210",
+        "email": "rajesh.kumar@example.com"
+    },
+    "professional_information": {
+        "medical_license_number": "67890",
+        "years_of_experience": 15.2,
+        "qualifications": "MBBS, MD"
+    }
+}
+
+{
+    "basic_info": {
+        "first_name": "Anita",
+        "last_name": "Sharma",
+        "role": {
+            "name": "Nurse",
+            "description": "Healthmedicare support staff"
+        },
+        "gender": "Female",
+        "employment_details": {
+            "joining_date": "2021-06-01T10:00:00Z",
+            "relieving_date": "2024-12-31T17:00:00Z",
+            "department": "Pediatrics",
+            "salary": 60000.00,
+            "payroll": {
+                "payment_date": "2021-06-01T10:00:00Z",
+                "gross_amount": 20000.00,
+                "deductions": 5000.00,
+                "net_amount": 15000.00
+            }
+        }
+    },
+    "contact": {
+        "address": {
+            "address_category": "CURRENT",
+            "country": "India",
+            "state": "Maharashtra",
+            "street": "78, Aundh Road",
+            "city": "Pune",
+            "pin": "411007",
+            "geo_location": "18.520430, 73.856743"
+        },
+        "phone": "9123456789",
+        "email": "anita.sharma@example.com"
+    },
+    "professional_information": {
+        "medical_license_number": "54321",
+        "years_of_experience": 8.5,
+        "qualifications": "BSc Nursing"
+    }
+}
+{
+    "basic_info": {
+        "first_name": "Arjun",
+        "last_name": "Reddy",
+        "role": {
+            "name": "Pharmacist",
+            "description": "Medication specialist"
+        },
+        "gender": "Male",
+        "employment_details": {
+            "joining_date": "2019-11-20T09:00:00Z",
+            "relieving_date": "2023-07-15T16:00:00Z",
+            "department": "Pharmacy",
+            "salary": 70000.00,
+            "payroll": {
+                "payment_date": "2019-11-20T09:00:00Z",
+                "gross_amount": 25000.00,
+                "deductions": 2000.00,
+                "net_amount": 23000.00
+            }
+        }
+    },
+    "contact": {
+        "address": {
+            "address_category": "CURRENT",
+            "country": "India",
+            "state": "Karnataka",
+            "street": "22, Brigade Road",
+            "city": "Bangalore",
+            "pin": "560025",
+            "geo_location": "12.971599, 77.594566"
+        },
+        "phone": "9988776655",
+        "email": "arjun.reddy@example.com"
+    },
+    "professional_information": {
+        "medical_license_number": "98765",
+        "years_of_experience": 5.0,
+        "qualifications": "BPharm"
+    }
+}
+{
+    "basic_info": {
+        "first_name": "Sita",
+        "last_name": "Singh",
+        "role": {
+            "name": "Lab Technician",
+            "description": "Diagnostic laboratory technician"
+        },
+        "gender": "Female",
+        "employment_details": {
+            "joining_date": "2020-02-15T07:00:00Z",
+            "relieving_date": "2026-03-31T15:00:00Z",
+            "department": "Laboratory",
+            "salary": 65000.00,
+            "payroll": {
+                "payment_date": "2020-02-15T07:00:00Z",
+                "gross_amount": 22000.00,
+                "deductions": 4000.00,
+                "net_amount": 18000.00
+            }
+        }
+    },
+    "contact": {
+        "address": {
+            "address_category": "CURRENT",
+            "country": "India",
+            "state": "Gujarat",
+            "street": "32, Sapphire Tower",
+            "city": "Ahmedabad",
+            "pin": "380015",
+            "geo_location": "23.022505, 72.571362"
+        },
+        "phone": "8123456789",
+        "email": "sita.singh@example.com"
+    },
+    "professional_information": {
+        "medical_license_number": "56789",
+        "years_of_experience": 7.4,
+        "qualifications": "BSc Medical Laboratory Technology"
+    }
+}
+{
+    "basic_info": {
+        "first_name": "Sunil",
+        "last_name": "Chopra",
+        "role": {
+            "name": "Radiologist",
+            "description": "Imaging and diagnostic specialist"
+        },
+        "gender": "Male",
+        "employment_details": {
+            "joining_date": "2018-09-05T11:00:00Z",
+            "relieving_date": "2024-05-20T14:00:00Z",
+            "department": "Radiology",
+            "salary": 85000.00,
+            "payroll": {
+                "payment_date": "2018-09-05T11:00:00Z",
+                "gross_amount": 28000.00,
+                "deductions": 6000.00,
+                "net_amount": 22000.00
+            }
+        }
+    },
+    "contact": {
+        "address": {
+            "address_category": "CURRENT",
+            "country": "India",
+            "state": "West Bengal",
+            "street": "54, Park Street",
+            "city": "Kolkata",
+            "pin": "700016",
+            "geo_location": "22.572645, 88.363892"
+        },
+        "phone": "9234567890",
+        "email": "sunil.chopra@example.com"
+    },
+    "professional_information": {
+        "medical_license_number": "34567",
+        "years_of_experience": 12.3,
+        "qualifications": "MBBS, MD Radiology"
+    }
+}
+
+
+users json
+
+
+{
+    "basic_info": {
+        "first_name": "Ananya",
+        "last_name": "Gupta",
+        "role": {
+            "name": "Nurse",
+            "description": "Healthmedicare professional providing patient medicare"
+        },
+        "gender": "FeMale",
+        "employment_details": {
+            "joining_date": "2022-06-01T09:00:00Z",
+            "relieving_date": "2025-05-31T17:00:00Z",
+            "department": "emergency_medicare",
+            "salary": 75000.00,
+            "payroll": {
+                "payment_date": "2022-06-01T09:00:00Z",
+                "gross_amount": 75000.00,
+                "deductions": 5000.00,
+                "net_amount": 70000.00
+            }
+        }
+    },
+    "contact": {
+        "address": {
+            "address_category": "CURRENT",
+            "country": "India",
+            "state": "Karnataka",
+            "street": "12, Lavender Street",
+            "city": "Bengaluru",
+            "pin": "560025",
+            "geo_location": "12.971599, 77.594566"
+        },
+        "phone": "9988776655",
+        "email": "ananya.gupta@example.com"
+    }
+}
+{
+    "basic_info": {
+        "first_name": "Raj",
+        "last_name": "Mehta",
+        "role": {
+            "name": "Nurse",
+            "description": "Provides medicare and support to patients"
+        },
+        "gender": "Male",
+        "employment_details": {
+            "joining_date": "2023-01-15T08:00:00Z",
+            "relieving_date": "2026-01-14T17:00:00Z",
+            "department": "Intensive medicare",
+            "salary": 80000.00,
+            "payroll": {
+                "payment_date": "2023-01-15T08:00:00Z",
+                "gross_amount": 80000.00,
+                "deductions": 6000.00,
+                "net_amount": 74000.00
+            }
+        }
+    },
+    "contact": {
+        "address": {
+            "address_category": "CURRENT",
+            "country": "India",
+            "state": "Maharashtra",
+            "street": "34, Oak Avenue",
+            "city": "Mumbai",
+            "pin": "400001",
+            "geo_location": "19.076090, 72.877426"
+        },
+        "phone": "9123456789",
+        "email": "raj.mehta@example.com"
+    }
+}
+{
+    "basic_info": {
+        "first_name": "Sita",
+        "last_name": "Rani",
+        "role": {
+            "name": "Nurse",
+            "description": "medicares for patients and assists doctors"
+        },
+        "gender": "FeMale",
+        "employment_details": {
+            "joining_date": "2021-08-10T07:00:00Z",
+            "relieving_date": "2024-08-09T16:00:00Z",
+            "department": "Pediatrics",
+            "salary": 72000.00,
+            "payroll": {
+                "payment_date": "2021-08-10T07:00:00Z",
+                "gross_amount": 72000.00,
+                "deductions": 4000.00,
+                "net_amount": 68000.00
+            }
+        }
+    },
+    "contact": {
+        "address": {
+            "address_category": "CURRENT",
+            "country": "India",
+            "state": "Delhi",
+            "street": "56, Rose Garden",
+            "city": "New Delhi",
+            "pin": "110001",
+            "geo_location": "28.613939, 77.209021"
+        },
+        "phone": "9876543210",
+        "email": "sita.rani@example.com"
+    }
+}
+{
+    "basic_info": {
+        "first_name": "Amit",
+        "last_name": "Kumar",
+        "role": {
+            "name": "Nurse",
+            "description": "Provides medical medicare and support"
+        },
+        "gender": "Male",
+        "employment_details": {
+            "joining_date": "2022-03-15T10:00:00Z",
+            "relieving_date": "2025-03-14T18:00:00Z",
+            "department": "Cardiology",
+            "salary": 78000.00,
+            "payroll": {
+                "payment_date": "2022-03-15T10:00:00Z",
+                "gross_amount": 78000.00,
+                "deductions": 5500.00,
+                "net_amount": 72500.00
+            }
+        }
+    },
+    "contact": {
+        "address": {
+            "address_category": "CURRENT",
+            "country": "India",
+            "state": "West Bengal",
+            "street": "78, Jasmine Lane",
+            "city": "Kolkata",
+            "pin": "700029",
+            "geo_location": "22.572645, 88.363892"
+        },
+        "phone": "9988776655",
+        "email": "amit.kumar@example.com"
+    }
+}

@@ -1,7 +1,7 @@
-package com.medicare.entity;
+package com.eaglecare.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -28,7 +28,7 @@ public class EmploymentDetailsEntity {
     @Column(name = "salary", precision = 10, scale = 2)
     private BigDecimal salary;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "payroll_id")
     private PayRollEntity payroll;
 

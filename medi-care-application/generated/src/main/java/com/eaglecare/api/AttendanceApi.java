@@ -3,15 +3,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-package com.medicare.api;
+package com.eaglecare.api;
 
-import com.medicare.model.CheckInCheckOut;
+import com.eaglecare.model.CheckInCheckOut;
 import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
-import com.medicare.model.HolidayConfiguration;
-import com.medicare.model.LeaveAllocation;
-import com.medicare.model.LeaveApplication;
-import com.medicare.model.LeaveApproval;
+import com.eaglecare.model.HolidayConfiguration;
+import com.eaglecare.model.LeaveAllocation;
+import com.eaglecare.model.LeaveApplication;
+import com.eaglecare.model.LeaveApproval;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-09-12T00:43:21.532621800+05:30[Asia/Calcutta]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-10-12T00:33:25.588524200+05:30[Asia/Calcutta]")
 @Validated
 @Tag(name = "Attendance", description = "Operations about Attendance")
 public interface AttendanceApi {
@@ -145,7 +145,7 @@ public interface AttendanceApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"date\" : \"2000-01-23\", \"check_in_time\" : \"check_in_time\", \"check_out_time\" : \"check_out_time\", \"id\" : 0, \"userId\" : 6 }";
+                    String exampleString = "{ \"date\" : \"date\", \"check_in_time\" : \"check_in_time\", \"check_out_time\" : \"check_out_time\", \"id\" : 0, \"userId\" : 6 }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -189,7 +189,7 @@ public interface AttendanceApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"date\" : \"2000-01-23\", \"check_in_time\" : \"check_in_time\", \"check_out_time\" : \"check_out_time\", \"id\" : 0, \"userId\" : 6 }";
+                    String exampleString = "{ \"date\" : \"date\", \"check_in_time\" : \"check_in_time\", \"check_out_time\" : \"check_out_time\", \"id\" : 0, \"userId\" : 6 }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -301,7 +301,7 @@ public interface AttendanceApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"date\" : \"2000-01-23\", \"check_in_time\" : \"check_in_time\", \"check_out_time\" : \"check_out_time\", \"id\" : 0, \"userId\" : 6 }";
+                    String exampleString = "{ \"date\" : \"date\", \"check_in_time\" : \"check_in_time\", \"check_out_time\" : \"check_out_time\", \"id\" : 0, \"userId\" : 6 }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -344,7 +344,7 @@ public interface AttendanceApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"date\" : \"2000-01-23\", \"description\" : \"description\", \"id\" : 0 }";
+                    String exampleString = "{ \"date\" : \"date\", \"description\" : \"description\", \"id\" : 0 }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

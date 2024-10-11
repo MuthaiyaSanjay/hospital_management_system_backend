@@ -1,11 +1,9 @@
-package com.medicare.model;
+package com.eaglecare.model;
 
 import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import java.util.Date;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
@@ -20,7 +18,7 @@ import jakarta.annotation.Generated;
  * CheckInCheckOut
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-09-12T00:43:21.532621800+05:30[Asia/Calcutta]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-10-12T00:33:25.588524200+05:30[Asia/Calcutta]")
 public class CheckInCheckOut {
 
   @JsonProperty("id")
@@ -30,8 +28,7 @@ public class CheckInCheckOut {
   private Long userId;
 
   @JsonProperty("date")
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-  private Date date;
+  private String date;
 
   @JsonProperty("check_in_time")
   private String checkInTime;
@@ -77,7 +74,7 @@ public class CheckInCheckOut {
     this.userId = userId;
   }
 
-  public CheckInCheckOut date(Date date) {
+  public CheckInCheckOut date(String date) {
     this.date = date;
     return this;
   }
@@ -86,13 +83,13 @@ public class CheckInCheckOut {
    * Get date
    * @return date
   */
-  @Valid 
+  
   @Schema(name = "date", required = false)
-  public Date getDate() {
+  public String getDate() {
     return date;
   }
 
-  public void setDate(Date date) {
+  public void setDate(String date) {
     this.date = date;
   }
 

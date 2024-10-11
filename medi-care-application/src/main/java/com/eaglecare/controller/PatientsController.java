@@ -1,8 +1,8 @@
-package com.medicare.controller;
+package com.eaglecare.controller;
 
-import com.medicare.api.PatientsApi;
-import com.medicare.model.Patients;
-import com.medicare.service.PatientService;
+import com.eaglecare.api.PatientsApi;
+import com.eaglecare.model.Patients;
+import com.eaglecare.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,9 +33,10 @@ public class PatientsController implements PatientsApi {
     @Override
     public ResponseEntity<String> deletePatientsById(String id) {
         try {
-            return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+            patientService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            System.err.println("Error : " + e.getMessage());
+            System.err.println("Error Occurring Delete Patients By Id : " + e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
@@ -43,9 +44,14 @@ public class PatientsController implements PatientsApi {
     @Override
     public ResponseEntity<List<Patients>> getPatients(BigDecimal page, BigDecimal count, BigDecimal patientsId, String phoneNumber) {
         try {
-            return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+            BigDecimal bg1 = new BigDecimal(String.valueOf(page));
+            BigDecimal bg2 = new BigDecimal(String.valueOf(count));
+            int page1 = bg1.intValue();
+            int count1 = bg2.intValue();
+            List<Patients> patients = patientService.getAllPatients(page1, count1);
+            return new ResponseEntity<>(patients, HttpStatus.OK);
         } catch (Exception e) {
-            System.err.println("Error : " + e.getMessage());
+            System.err.println("Error Occurring GetAllPatients : " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
@@ -64,7 +70,7 @@ public class PatientsController implements PatientsApi {
     @Override
     public ResponseEntity<Patients> updatePatients(String id, Patients patients) {
         try {
-            Patients patients1 = patientService.update(id ,patients);
+            Patients patients1 = patientService.update(id, patients);
             return new ResponseEntity<>(patients1, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());

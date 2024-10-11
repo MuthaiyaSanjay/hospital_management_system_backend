@@ -1,4 +1,4 @@
-package com.medicare.model;
+package com.eaglecare.model;
 
 import java.net.URI;
 import java.util.Objects;
@@ -22,7 +22,7 @@ import jakarta.annotation.Generated;
  * Payments
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-09-12T00:43:21.532621800+05:30[Asia/Calcutta]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-10-12T00:33:25.588524200+05:30[Asia/Calcutta]")
 public class Payments {
 
   @JsonProperty("id")

@@ -1,8 +1,8 @@
-package com.medicare.controller;
+package com.eaglecare.controller;
 
 
-import com.medicare.api.HealthApi;
-import com.medicare.model.GetHealth200Response;
+import com.eaglecare.api.HealthApi;
+import com.eaglecare.model.GetHealth200Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 

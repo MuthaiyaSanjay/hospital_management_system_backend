@@ -1,13 +1,13 @@
-package com.medicare.controller;
+package com.eaglecare.controller;
 
-import com.medicare.api.AppointmentApi;
-import com.medicare.model.Appointment;
-import com.medicare.model.Doctor;
-import com.medicare.service.AppointmentService;
+import com.eaglecare.api.AppointmentApi;
+import com.eaglecare.model.Appointment;
+import com.eaglecare.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -17,24 +17,42 @@ import java.util.List;
 public class AppointmentController implements AppointmentApi {
 
     @Autowired
-    private AppointmentService appointmentService;
+    AppointmentService appointmentService;
 
     @Override
     public ResponseEntity<Appointment> bookAppointment(Appointment appointment) {
-        Appointment appointmentDetails = appointmentService.createAppointment(appointment);
-        return new ResponseEntity<>(appointmentDetails,HttpStatus.OK);
+        try {
+            Appointment appointmentDetails = appointmentService.createOrUpdateAppointment(appointment);
+            return new ResponseEntity<>(appointmentDetails, HttpStatus.OK);
+        } catch (Exception e) {
+            System.err.println("Error retrieving Book Appointment: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @Override
     public ResponseEntity<String> deleteAppointmentById(String id) {
-        appointmentService.deleteById(Long.parseLong(id));
-        return new ResponseEntity<>(id + " Appointment Deleted Successfully ", HttpStatus.OK);
+        try {
+            appointmentService.deleteById(Long.parseLong(id));
+            return new ResponseEntity<>(id + " Appointment Deleted Successfully ", HttpStatus.OK);
+        } catch (Exception e) {
+            System.err.println("Error Occurring Appointment Deleted: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @Override
     public ResponseEntity<Appointment> getAppoinmentById(String id) {
-        Appointment appointmentDetails = appointmentService.findById(Long.parseLong(id));
-        return new ResponseEntity<>(appointmentDetails, HttpStatus.OK);
+        try {
+            Appointment appointmentDetails = appointmentService.findById(Long.parseLong(id));
+            return new ResponseEntity<>(appointmentDetails, HttpStatus.OK);
+        } catch (ResponseStatusException e) {
+            System.err.println("Error Occurring Get Appointment ById : " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }catch (Exception e) {
+            System.err.println("Error Occurring Get Appointment ById : " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @Override
@@ -47,16 +65,20 @@ public class AppointmentController implements AppointmentApi {
             List<Appointment> appointments = appointmentService.getAllAppointments(page1, count1);
             return new ResponseEntity<>(appointments, HttpStatus.OK);
         } catch (Exception e) {
-            // Log the exception
-            System.err.println("Error retrieving doctors: " + e.getMessage());
+            System.err.println("Error Occurring Get Appointments : " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
     @Override
     public ResponseEntity<Appointment> updateAppointment(String id, Appointment appointment) {
-        appointment.setId(id);
-        Appointment appointmentDetails = appointmentService.createAppointment(appointment);
-        return new ResponseEntity<>(appointmentDetails,HttpStatus.OK);
+        try {
+            appointment.setId(id);
+            Appointment appointmentDetails = appointmentService.createOrUpdateAppointment(appointment);
+            return new ResponseEntity<>(appointmentDetails, HttpStatus.OK);
+        } catch (Exception e) {
+            System.err.println("Error Occurring UpdateAppointment : " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 }

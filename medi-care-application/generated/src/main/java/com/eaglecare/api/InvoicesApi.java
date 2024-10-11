@@ -3,13 +3,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-package com.medicare.api;
+package com.eaglecare.api;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
-import com.medicare.model.Invoices;
-import com.medicare.model.PayRoll;
+import com.eaglecare.model.Invoices;
+import com.eaglecare.model.PayRoll;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -33,7 +33,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-09-12T00:43:21.532621800+05:30[Asia/Calcutta]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-10-12T00:33:25.588524200+05:30[Asia/Calcutta]")
 @Validated
 @Tag(name = "Invoices", description = "Operations about Invoices")
 public interface InvoicesApi {
@@ -222,7 +222,7 @@ public interface InvoicesApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"id\" : \"4acd0b30-0ac1-4d0f-938b-c7b86d804375\", \"gross_amount\" : 0.8008282, \"net_amount\" : 1.4658129, \"deductions\" : 6.0274563, \"payment_date\" : \"2024-11-05T00:00:00Z\" }";
+                    String exampleString = "{ \"id\" : \"4acd0b30-0ac1-4d0f-938b-c7b86d804375\", \"gross_amount\" : 0.8008282, \"net_amount\" : 1.4658129, \"deductions\" : 6.0274563, \"user\" : \"user\", \"payment_date\" : \"2024-11-05T00:00:00Z\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

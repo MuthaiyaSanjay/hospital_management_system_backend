@@ -1,13 +1,15 @@
-package com.medicare.service;
+package com.eaglecare.service;
 
-import com.medicare.entity.*;
-import com.medicare.model.*;
-import com.medicare.repository.*;
+import com.eaglecare.entity.*;
+import com.eaglecare.exception.CustomException;
+import com.eaglecare.model.*;
+import com.eaglecare.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -22,63 +24,70 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 public class DoctorService {
 
     @Autowired
-    private DoctorRepo doctorRepo;
+    DoctorRepo doctorRepo;
 
     @Autowired
-    private ContactRepo contactRepo;
+    ContactRepo contactRepo;
 
     @Autowired
-    private AddressRepo addressRepo;
+    AddressRepo addressRepo;
 
     @Autowired
-    private UserBasicInfoRepo userBasicInfoRepo;
+    UserBasicInfoRepo userBasicInfoRepo;
 
     @Autowired
-    private RoleRepo roleRepo;
+    RoleRepo roleRepo;
 
     @Autowired
-    private EmploymentDetailsRepo employmentDetailsRepo;
+    EmploymentDetailsRepo employmentDetailsRepo;
 
     @Autowired
-    private PayRollRepo payRollRepo;
+    PayRollRepo payRollRepo;
 
     @Autowired
-    private ProfessionalInformationRepo professionalInformationRepo;
+    ProfessionalInformationRepo professionalInformationRepo;
 
     @Autowired
-    private ModelMapper modelMapper;
+    ModelMapper modelMapper;
 
     public Doctor saveDoctor(Doctor doctor) {
-        System.out.println("Enter into the doctor service");
-        DoctorEntity doctorEntity = modelMapper.map(doctor, DoctorEntity.class);
-        UserBasicInfoEntity user = dtoToEntity(doctor.getBasicInfo());
-        roleRepo.save(user.getRole());
-        payRollRepo.save(user.getEmploymentDetails().getPayroll());
-        employmentDetailsRepo.save(user.getEmploymentDetails());
-        userBasicInfoRepo.save(user);
-        user.setEmploymentDetails(user.getEmploymentDetails());
-        user.setRole(user.getRole());
-        user.getEmploymentDetails().setPayroll(user.getEmploymentDetails().getPayroll());
-        doctorEntity.setBasicInfo(user);
-
-        if (doctorEntity.getProfessionalInformation() != null) {
-            ProfessionalInformationEntity professionalInfoEntity = doctorEntity.getProfessionalInformation();
-            professionalInfoEntity = professionalInformationRepo.save(professionalInfoEntity);
-            doctorEntity.setProfessionalInformation(professionalInfoEntity);
-        }
-        if (doctorEntity.getContact() != null) {
-            ContactEntity contactEntity = doctorEntity.getContact();
-            if (contactEntity.getAddress() != null) {
-                AddressEntity addressEntity = contactEntity.getAddress();
-                addressEntity = addressRepo.save(addressEntity);
-                contactEntity.setAddress(addressEntity);
+        try {
+            System.out.println("Enter into the doctor service");
+            DoctorEntity doctorEntity = modelMapper.map(doctor, DoctorEntity.class);
+            UserBasicInfoEntity user = dtoToEntity(doctor.getBasicInfo());
+            roleRepo.save(user.getRole());
+            if (!(user.getEmploymentDetails().getPayroll() == null)) {
+                payRollRepo.save(user.getEmploymentDetails().getPayroll());
             }
-            contactEntity = contactRepo.save(contactEntity);
-            doctorEntity.setContact(contactEntity);
+            employmentDetailsRepo.save(user.getEmploymentDetails());
+            userBasicInfoRepo.save(user);
+            user.setEmploymentDetails(user.getEmploymentDetails());
+            user.setRole(user.getRole());
+            user.getEmploymentDetails().setPayroll(user.getEmploymentDetails().getPayroll());
+            doctorEntity.setBasicInfo(user);
+
+            if (doctorEntity.getProfessionalInformation() != null) {
+                ProfessionalInformationEntity professionalInfoEntity = doctorEntity.getProfessionalInformation();
+                professionalInfoEntity = professionalInformationRepo.save(professionalInfoEntity);
+                doctorEntity.setProfessionalInformation(professionalInfoEntity);
+            }
+            if (doctorEntity.getContact() != null) {
+                ContactEntity contactEntity = doctorEntity.getContact();
+                if (contactEntity.getAddress() != null) {
+                    AddressEntity addressEntity = contactEntity.getAddress();
+                    addressEntity = addressRepo.save(addressEntity);
+                    contactEntity.setAddress(addressEntity);
+                }
+                contactEntity = contactRepo.save(contactEntity);
+                doctorEntity.setContact(contactEntity);
+            }
+            DoctorEntity savedDoctorEntity = doctorRepo.save(doctorEntity);
+            return modelMapper.map(savedDoctorEntity, Doctor.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(" Exception " + e.getMessage());
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage());
         }
-        DoctorEntity savedDoctorEntity = doctorRepo.save(doctorEntity);
-        Doctor responseDoctor = modelMapper.map(savedDoctorEntity, Doctor.class);
-        return responseDoctor;
     }
 
 

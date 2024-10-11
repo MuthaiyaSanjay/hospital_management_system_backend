@@ -1,4 +1,4 @@
-package com.medicare.entity;
+package com.eaglecare.entity;
 
 public enum GenderEnum {
     MALE,

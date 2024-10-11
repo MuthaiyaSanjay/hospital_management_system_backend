@@ -1,9 +1,9 @@
-package com.medicare.controller;
+package com.eaglecare.controller;
 
-import com.medicare.api.UsersApi;
-import com.medicare.entity.UserBasicInfoEntity;
-import com.medicare.model.UserPayload;
-import com.medicare.service.Userservice;
+import com.eaglecare.api.UsersApi;
+import com.eaglecare.exception.CustomException;
+import com.eaglecare.model.UserPayload;
+import com.eaglecare.service.Userservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class UserController implements UsersApi {
             return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -34,28 +34,29 @@ public class UserController implements UsersApi {
             return new ResponseEntity<>(user, HttpStatus.CREATED);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
     @Override
-    public  ResponseEntity<String> deleteUserById(String id)  {
+    public ResponseEntity<String> deleteUserById(String id) {
         try {
-            return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+            userservice.deleteById(id);
+            return new ResponseEntity<>(id + " is Successfully Deleted", HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
     @Override
-    public ResponseEntity<UserPayload> getUserById(String id)  {
+    public ResponseEntity<UserPayload> getUserById(String id) {
         try {
             UserPayload user = userservice.getUserById(Long.parseLong(id));
             return new ResponseEntity<>(user, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -67,11 +68,11 @@ public class UserController implements UsersApi {
             BigDecimal bg2 = new BigDecimal(String.valueOf(count));
             int page1 = bg1.intValue();
             int count1 = bg2.intValue();
-            List<UserPayload> user = userservice.getAllUsers(page1,count1);
-            return new ResponseEntity<>(user ,HttpStatus.OK);
+            List<UserPayload> user = userservice.getAllUsers(page1, count1);
+            return new ResponseEntity<>(user, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -82,7 +83,7 @@ public class UserController implements UsersApi {
             return new ResponseEntity<>(user, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 }

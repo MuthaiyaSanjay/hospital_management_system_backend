@@ -1,15 +1,15 @@
-package com.medicare;
+package com.eaglecare;
 
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class medicareApplication {
+public class CareApplication {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(medicareApplication.class, args);
+		SpringApplication.run(CareApplication.class, args);
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.medicare.configuration;
+package com.eaglecare.configuration;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

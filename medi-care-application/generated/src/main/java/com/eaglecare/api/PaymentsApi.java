@@ -3,12 +3,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-package com.medicare.api;
+package com.eaglecare.api;
 
 import java.math.BigDecimal;
-import com.medicare.model.Doctor;
 import java.util.List;
-import com.medicare.model.Payments;
+import com.eaglecare.model.Payments;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -32,7 +31,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-09-12T00:43:21.532621800+05:30[Asia/Calcutta]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-10-12T00:33:25.588524200+05:30[Asia/Calcutta]")
 @Validated
 @Tag(name = "Payments", description = "Operations about Payments")
 public interface PaymentsApi {
@@ -196,7 +195,7 @@ public interface PaymentsApi {
         tags = { "Payments" },
         responses = {
             @ApiResponse(responseCode = "200", description = "successful operation", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = Doctor.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = Payments.class))
             }),
             @ApiResponse(responseCode = "400", description = "Invalid user id")
         }
@@ -206,7 +205,7 @@ public interface PaymentsApi {
         value = "/v1/api/payments",
         produces = { "application/json" }
     )
-    default ResponseEntity<List<Doctor>> _getPayments(
+    default ResponseEntity<List<Payments>> _getPayments(
         @NotNull @Parameter(name = "page", description = "Page number", required = true) @Valid @RequestParam(value = "page", required = true, defaultValue = "0") BigDecimal page,
         @NotNull @Parameter(name = "count", description = "Data count", required = true) @Valid @RequestParam(value = "count", required = true, defaultValue = "5") BigDecimal count
     ) {
@@ -214,11 +213,11 @@ public interface PaymentsApi {
     }
 
     // Override this method
-    default  ResponseEntity<List<Doctor>> getPayments(BigDecimal page, BigDecimal count) {
+    default  ResponseEntity<List<Payments>> getPayments(BigDecimal page, BigDecimal count) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"professional_information\" : { \"qualifications\" : \"MBBS.MS\", \"years_of_experience\" : 10.6, \"id\" : \"4acd0b30-0ac1-4d0f-938b-c7b86d804375\", \"medical_license_number\" : \"8975469532\" }, \"basic_info\" : { \"role\" : { \"name\" : \"ROLE_USER\", \"description\" : \"User role\", \"id\" : \"4acd0b30-0ac1-4d0f-938b-c7b86d804375\" }, \"gender\" : \"Male\", \"user_id\" : \"fb17eecf-5ec6-4c13-a5bd-5ce1451472d0\", \"last_name\" : \"Aravind\", \"employment_details\" : { \"joining_date\" : \"2024-11-05T00:00:00Z\", \"relieving_date\" : \"2024-11-05T00:00:00Z\", \"id\" : \"4acd0b30-0ac1-4d0f-938b-c7b86d804375\", \"payroll\" : { \"id\" : \"4acd0b30-0ac1-4d0f-938b-c7b86d804375\", \"gross_amount\" : 0.8008282, \"net_amount\" : 1.4658129, \"deductions\" : 6.0274563, \"payment_date\" : \"2024-11-05T00:00:00Z\" }, \"department\" : \"CLINIC_STAFF\", \"salary\" : 18500 }, \"first_name\" : \"Sastika\" }, \"contact\" : { \"address\" : { \"country\" : \"India\", \"geo_location\" : \"India\", \"pin\" : \"624601\", \"city\" : \"Coimabtore\", \"street\" : \"121,Balaji Nagar\", \"address_category\" : \"Personal\", \"id\" : \"4acd0b30-0ac1-4d0f-938b-c7b86d804375\", \"state\" : \"Tamilnadu\" }, \"phone\" : \"7010192967\", \"id\" : \"4acd0b30-0ac1-4d0f-938b-c7b86d804375\", \"email\" : \"aravind@gmail.com\" }, \"id\" : \"4acd0b30-0ac1-4d0f-938b-c7b86d804375\" }";
+                    String exampleString = "{ \"amount\" : 78965, \"invoice_id\" : 158, \"payment_due_date\" : \"2024-11-05T00:00:00Z\", \"id\" : \"4acd0b30-0ac1-4d0f-938b-c7b86d804375\", \"payment_date\" : \"2024-11-05T00:00:00Z\", \"status\" : \"UN_PAID\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

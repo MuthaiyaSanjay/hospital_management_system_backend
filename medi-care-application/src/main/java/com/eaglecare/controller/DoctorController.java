@@ -1,8 +1,9 @@
-package com.medicare.controller;
+package com.eaglecare.controller;
 
-import com.medicare.api.DoctorApi;
-import com.medicare.model.Doctor;
-import com.medicare.service.DoctorService;
+import com.eaglecare.api.DoctorApi;
+import com.eaglecare.exception.CustomException;
+import com.eaglecare.model.Doctor;
+import com.eaglecare.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +25,8 @@ public class DoctorController implements DoctorApi {
             Doctor res = doctorService.saveDoctor(doctor);
             return ResponseEntity.ok(res);
         } catch (Exception e) {
-            // Log the exception
             System.err.println("Error creating doctor: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -56,7 +56,6 @@ public class DoctorController implements DoctorApi {
             List<Doctor> doctors = doctorService.getAllDoctors(page1, count1);
             return new ResponseEntity<>(doctors, HttpStatus.OK);
         } catch (Exception e) {
-            // Log the exception
             System.err.println("Error retrieving doctors: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
@@ -73,7 +72,6 @@ public class DoctorController implements DoctorApi {
             System.err.println("Invalid ID format: " + e.getMessage());
             return ResponseEntity.badRequest().body(null);
         } catch (Exception e) {
-            // Log other exceptions
             System.err.println("Error retrieving doctor: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
@@ -82,11 +80,10 @@ public class DoctorController implements DoctorApi {
     @Override
     public ResponseEntity<Doctor> updateDoctor(String id, Doctor doctor) {
         try {
-            System.out.println("--doctor values -----" + doctor);
+            System.out.println("--doctor values-----" + doctor);
             Doctor res = doctorService.updateDoctor(id, doctor);
             return ResponseEntity.ok(res);
         } catch (Exception e) {
-            // Log the exception
             System.err.println("Error updating doctor: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }

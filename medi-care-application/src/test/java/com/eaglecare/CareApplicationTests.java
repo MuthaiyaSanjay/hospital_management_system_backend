@@ -1,9 +1,9 @@
-package com.medicare;
+package com.eaglecare;
 
 
 
 
-class medicareApplicationTests {
+class CareApplicationTests {
 
 
 	void contextLoads() {

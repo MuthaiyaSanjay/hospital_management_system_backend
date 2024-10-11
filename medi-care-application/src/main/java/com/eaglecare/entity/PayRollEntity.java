@@ -1,6 +1,6 @@
-package com.medicare.entity;
+package com.eaglecare.entity;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -8,32 +8,31 @@ import java.util.Date;
 @Entity
 @Table(name = "payroll")
 public class PayRollEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "payroll_id")
-    private Long id;
+    private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserBasicInfoEntity user;
+    @Column(name = "user_id")
+    private long user;
 
     @Column(name = "payment_date")
-    @Temporal(TemporalType.TIMESTAMP) // Store as TIMESTAMP in the database
     private Date payment_date;
 
     @Column(name = "gross_amount")
-    private Float gross_amount;
+    private double gross_amount;
 
     @Column(name = "deductions")
-    private Float deductions;
+    private double deductions;
 
     @Column(name = "net_amount")
-    private Float net_amount;
+    private double net_amount;
 
     public PayRollEntity() {
     }
 
-    public PayRollEntity(Long id, UserBasicInfoEntity user, Date paymentDate, Float grossAmount, Float deductions, Float netAmount) {
+    public PayRollEntity(long id, long user, Date paymentDate, double grossAmount, double deductions, double netAmount) {
         this.id = id;
         this.user = user;
         this.payment_date = paymentDate;
@@ -42,19 +41,19 @@ public class PayRollEntity {
         this.net_amount = netAmount;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public UserBasicInfoEntity getUser() {
+    public long getUser() {
         return user;
     }
 
-    public void setUser(UserBasicInfoEntity user) {
+    public void setUser(long user) {
         this.user = user;
     }
 
@@ -66,27 +65,27 @@ public class PayRollEntity {
         this.payment_date = paymentDate;
     }
 
-    public Float getGrossAmount() {
+    public double getGrossAmount() {
         return gross_amount;
     }
 
-    public void setGrossAmount(Float grossAmount) {
+    public void setGrossAmount(double grossAmount) {
         this.gross_amount = grossAmount;
     }
 
-    public Float getDeductions() {
+    public double getDeductions() {
         return deductions;
     }
 
-    public void setDeductions(Float deductions) {
+    public void setDeductions(double deductions) {
         this.deductions = deductions;
     }
 
-    public Float getNetAmount() {
+    public double getNetAmount() {
         return net_amount;
     }
 
-    public void setNetAmount(Float netAmount) {
+    public void setNetAmount(double netAmount) {
         this.net_amount = netAmount;
     }
 }

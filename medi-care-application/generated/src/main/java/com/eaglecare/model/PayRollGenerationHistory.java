@@ -1,12 +1,11 @@
-package com.medicare.model;
+package com.eaglecare.model;
 
 import java.net.URI;
 import java.util.Objects;
-import com.medicare.model.DeductionSummary;
+import com.eaglecare.model.DeductionSummary;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +22,7 @@ import jakarta.annotation.Generated;
  * PayRollGenerationHistory
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-09-12T00:43:21.532621800+05:30[Asia/Calcutta]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-10-12T00:33:25.588524200+05:30[Asia/Calcutta]")
 public class PayRollGenerationHistory {
 
   @JsonProperty("emp_id")
@@ -36,17 +35,17 @@ public class PayRollGenerationHistory {
   private Integer leave;
 
   @JsonProperty("cross_salary")
-  private BigDecimal crossSalary;
+  private Double crossSalary;
 
   @JsonProperty("deductions")
-  private BigDecimal deductions;
+  private Double deductions;
 
   @JsonProperty("deduction_summary")
   @Valid
   private List<DeductionSummary> deductionSummary = null;
 
   @JsonProperty("net_salary")
-  private BigDecimal netSalary;
+  private Double netSalary;
 
   /**
    * Gets or Sets status
@@ -143,7 +142,7 @@ public class PayRollGenerationHistory {
     this.leave = leave;
   }
 
-  public PayRollGenerationHistory crossSalary(BigDecimal crossSalary) {
+  public PayRollGenerationHistory crossSalary(Double crossSalary) {
     this.crossSalary = crossSalary;
     return this;
   }
@@ -152,17 +151,17 @@ public class PayRollGenerationHistory {
    * Get crossSalary
    * @return crossSalary
   */
-  @Valid 
+  
   @Schema(name = "cross_salary", example = "15000.63", required = false)
-  public BigDecimal getCrossSalary() {
+  public Double getCrossSalary() {
     return crossSalary;
   }
 
-  public void setCrossSalary(BigDecimal crossSalary) {
+  public void setCrossSalary(Double crossSalary) {
     this.crossSalary = crossSalary;
   }
 
-  public PayRollGenerationHistory deductions(BigDecimal deductions) {
+  public PayRollGenerationHistory deductions(Double deductions) {
     this.deductions = deductions;
     return this;
   }
@@ -171,13 +170,13 @@ public class PayRollGenerationHistory {
    * Get deductions
    * @return deductions
   */
-  @Valid 
+  
   @Schema(name = "deductions", example = "1596.32", required = false)
-  public BigDecimal getDeductions() {
+  public Double getDeductions() {
     return deductions;
   }
 
-  public void setDeductions(BigDecimal deductions) {
+  public void setDeductions(Double deductions) {
     this.deductions = deductions;
   }
 
@@ -208,7 +207,7 @@ public class PayRollGenerationHistory {
     this.deductionSummary = deductionSummary;
   }
 
-  public PayRollGenerationHistory netSalary(BigDecimal netSalary) {
+  public PayRollGenerationHistory netSalary(Double netSalary) {
     this.netSalary = netSalary;
     return this;
   }
@@ -217,13 +216,13 @@ public class PayRollGenerationHistory {
    * Get netSalary
    * @return netSalary
   */
-  @Valid 
+  
   @Schema(name = "net_salary", example = "14899.9", required = false)
-  public BigDecimal getNetSalary() {
+  public Double getNetSalary() {
     return netSalary;
   }
 
-  public void setNetSalary(BigDecimal netSalary) {
+  public void setNetSalary(Double netSalary) {
     this.netSalary = netSalary;
   }
 

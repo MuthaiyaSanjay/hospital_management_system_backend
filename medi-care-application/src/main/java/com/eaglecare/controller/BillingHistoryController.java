@@ -1,7 +1,7 @@
-package com.medicare.controller;
+package com.eaglecare.controller;
 
-import com.medicare.api.BillingHistoryApi;
-import com.medicare.model.BillingHistory;
+import com.eaglecare.api.BillingHistoryApi;
+import com.eaglecare.model.BillingHistory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;

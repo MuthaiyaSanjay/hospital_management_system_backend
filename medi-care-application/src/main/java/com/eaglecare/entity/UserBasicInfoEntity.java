@@ -1,8 +1,8 @@
-package com.medicare.entity;
+package com.eaglecare.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -23,8 +23,8 @@ public class UserBasicInfoEntity {
     @Column(name = "last_name")
     private String lastName;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "role_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "role_id")
     private RoleEntity role;
 
     @Enumerated(EnumType.STRING)
@@ -33,10 +33,12 @@ public class UserBasicInfoEntity {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_details_id")
+    @JsonManagedReference
     private EmploymentDetailsEntity employmentDetails;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "contact_id")
+    @JsonManagedReference
     private ContactEntity contact;
 
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)

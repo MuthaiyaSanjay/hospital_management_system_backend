@@ -1,10 +1,10 @@
-package com.medicare.model;
+package com.eaglecare.model;
 
 import java.net.URI;
 import java.util.Objects;
-import com.medicare.model.Contact;
-import com.medicare.model.ProfessionalInformation;
-import com.medicare.model.UserBasiInfo;
+import com.eaglecare.model.Contact;
+import com.eaglecare.model.ProfessionalInformation;
+import com.eaglecare.model.UserBasiInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
@@ -21,7 +21,7 @@ import jakarta.annotation.Generated;
  * Doctor
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-09-12T00:43:21.532621800+05:30[Asia/Calcutta]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-10-12T00:33:25.588524200+05:30[Asia/Calcutta]")
 public class Doctor {
 
   @JsonProperty("id")

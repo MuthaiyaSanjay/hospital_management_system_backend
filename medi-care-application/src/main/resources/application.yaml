@@ -20,7 +20,7 @@ management:
 spring:
   datasource:
 #    url: jdbc:postgresql://localhost:5432/hospital
-    url: jdbc:postgresql://localhost:5432/eaglehospital
+    url: jdbc:postgresql://localhost:5432/eagle
     username: postgres
     password: admin
 #    password: root

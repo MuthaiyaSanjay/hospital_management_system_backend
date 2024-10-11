@@ -1,8 +1,7 @@
-package com.medicare.model;
+package com.eaglecare.model;
 
 import java.net.URI;
 import java.util.Objects;
-import com.medicare.model.UserBasiInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import java.util.Date;
@@ -21,14 +20,14 @@ import jakarta.annotation.Generated;
  * PayRoll
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-09-12T00:43:21.532621800+05:30[Asia/Calcutta]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-10-12T00:33:25.588524200+05:30[Asia/Calcutta]")
 public class PayRoll {
 
   @JsonProperty("id")
   private String id;
 
   @JsonProperty("user")
-  private UserBasiInfo user;
+  private String user;
 
   @JsonProperty("payment_date")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -62,7 +61,7 @@ public class PayRoll {
     this.id = id;
   }
 
-  public PayRoll user(UserBasiInfo user) {
+  public PayRoll user(String user) {
     this.user = user;
     return this;
   }
@@ -71,13 +70,13 @@ public class PayRoll {
    * Get user
    * @return user
   */
-  @Valid 
+  
   @Schema(name = "user", required = false)
-  public UserBasiInfo getUser() {
+  public String getUser() {
     return user;
   }
 
-  public void setUser(UserBasiInfo user) {
+  public void setUser(String user) {
     this.user = user;
   }
 

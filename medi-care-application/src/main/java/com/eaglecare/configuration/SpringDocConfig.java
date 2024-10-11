@@ -1,4 +1,4 @@
-package com.medicare.configuration;
+package com.eaglecare.configuration;
 
 
 import org.springdoc.core.models.GroupedOpenApi;

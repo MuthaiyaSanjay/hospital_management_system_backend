@@ -1,22 +1,23 @@
-package com.medicare.service;
+package com.eaglecare.service;
 
-import com.medicare.entity.AppointmentEntity;
-import com.medicare.entity.DoctorEntity;
-import com.medicare.entity.UserBasicInfoEntity;
-import com.medicare.model.Appointment;
-import com.medicare.model.Doctor;
-import com.medicare.model.Patients;
-import com.medicare.model.UserBasiInfo;
-import com.medicare.repository.AppointmentRepo;
-import com.medicare.repository.DoctorRepo;
-import com.medicare.repository.UserBasicInfoRepo;
+import com.eaglecare.entity.AppointmentEntity;
+import com.eaglecare.entity.DoctorEntity;
+import com.eaglecare.entity.UserBasicInfoEntity;
+import com.eaglecare.model.Appointment;
+import com.eaglecare.model.Doctor;
+import com.eaglecare.model.Patients;
+import com.eaglecare.repository.AppointmentRepo;
+import com.eaglecare.repository.DoctorRepo;
+import com.eaglecare.repository.UserBasicInfoRepo;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,34 +28,31 @@ public class AppointmentService {
 
 
     @Autowired
-    private ModelMapper modelMapper;
+    ModelMapper modelMapper;
 
     @Autowired
-    private DoctorRepo doctorRepo;
+    DoctorRepo doctorRepo;
 
     @Autowired
-    private UserBasicInfoRepo userBasicInfoRepo;
+    UserBasicInfoRepo userBasicInfoRepo;
 
     @Autowired
-    private AppointmentRepo appointmentRepo;
+    AppointmentRepo appointmentRepo;
 
-    public Appointment createAppointment(Appointment appointment) {
-        System.out.println("Creating Appointment: " + appointment);
-
+    public Appointment createOrUpdateAppointment(Appointment appointment) {
         Optional<UserBasicInfoEntity> userOptional = userBasicInfoRepo.findById(Long.parseLong(appointment.getPatient().getId()));
         if (!userOptional.isPresent()) {
             throw new EntityNotFoundException("Patient not found with ID: " + appointment.getPatient().getBasicInfo().getUserId());
         }
         UserBasicInfoEntity userEntity = userOptional.get();
 
-        // Retrieve and validate doctor
         Optional<DoctorEntity> doctorOptional = doctorRepo.findById(Long.parseLong(appointment.getDoctor().getId()));
         if (!doctorOptional.isPresent()) {
             throw new EntityNotFoundException("Doctor not found with ID: " + appointment.getDoctor().getId());
         }
         DoctorEntity doctorEntity = doctorOptional.get();
         AppointmentEntity appointmentEntity = new AppointmentEntity();
-        if (!(appointment.getId() == null)){
+        if (!(appointment.getId() == null)) {
             appointmentEntity.setId(Long.parseLong(appointment.getId()));
         }
         appointmentEntity.setAppointmentDate(appointment.getAppointmentDate());
@@ -62,22 +60,20 @@ public class AppointmentService {
         appointmentEntity.setPatient(userEntity);
         appointmentEntity.setDoctor(doctorEntity);
         appointmentEntity = appointmentRepo.save(appointmentEntity);
-        Appointment appointment1 =new Appointment();
+        Appointment appointment1 = new Appointment();
         appointment1 = modelMapper.map(appointmentEntity, Appointment.class);
         return appointment1;
     }
+
     public Appointment findById(Long id) {
         Optional<AppointmentEntity> appointmentOptional = appointmentRepo.findById(id);
         if (appointmentOptional.isEmpty()) {
-            throw new EntityNotFoundException("Appointment not found with ID: " + id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Appointment not found with ID: " + id);
         }
         AppointmentEntity appointmentEntity = appointmentOptional.get();
-        System.out.println("modelMapper Values : " +appointmentEntity.toString());
+        System.out.println("modelMapper Values : " + appointmentEntity.toString());
         return modelMapper.map(appointmentEntity, Appointment.class);
     }
-
-    @Autowired
-    Userservice userservice;
 
     public void deleteById(long id) {
         if (!appointmentRepo.existsById(id)) {
@@ -86,6 +82,7 @@ public class AppointmentService {
         appointmentRepo.deleteById(id);
         System.out.println("Deleted appointment with ID: " + id);
     }
+
     public List<Appointment> getAllAppointments(int page, int count) {
         Pageable pageable = PageRequest.of(page, count);
         Page<AppointmentEntity> appointmentPage = appointmentRepo.findAll(pageable);
@@ -98,12 +95,10 @@ public class AppointmentService {
     private Appointment convertToAppointment(AppointmentEntity appointmentEntity) {
         Appointment appointment = new Appointment();
 
-        // Map appointment fields
         appointment.setId(appointmentEntity.getId().toString());
         appointment.setAppointmentDate(appointmentEntity.getAppointmentDate());
         appointment.setAppointmentTime(appointmentEntity.getAppointmentTime());
 
-        // Convert and map patient details
         UserBasicInfoEntity patient = appointmentEntity.getPatient();
         if (patient == null) {
             throw new IllegalStateException("UserBasicInfoEntity is null for appointment with id: " + appointmentEntity.getId());
@@ -111,7 +106,6 @@ public class AppointmentService {
 
         appointment.setPatient(modelMapper.map(patient, Patients.class));
 
-        // Convert and map doctor details
         DoctorEntity doctor = appointmentEntity.getDoctor();
         if (doctor == null) {
             throw new IllegalStateException("DoctorEntity is null for appointment with id: " + appointmentEntity.getId());
@@ -120,4 +114,5 @@ public class AppointmentService {
 
         return appointment;
     }
+
 }

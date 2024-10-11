@@ -1,8 +1,10 @@
-package com.medicare.controller;
+package com.eaglecare.controller;
 
-import com.medicare.api.InvoicesApi;
-import com.medicare.model.Invoices;
-import com.medicare.model.PayRoll;
+import com.eaglecare.api.InvoicesApi;
+import com.eaglecare.model.Invoices;
+import com.eaglecare.model.PayRoll;
+import com.eaglecare.service.InvoiceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,11 +15,14 @@ import java.util.List;
 
 @RestController
 public class InvoiceController implements InvoicesApi {
+    @Autowired
+    InvoiceService invoiceService;
 
     @Override
     public ResponseEntity<Invoices> createInvoices(Invoices invoices) {
         try {
-            return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+            Invoices invoices1=invoiceService.saveInvoice(invoices);
+            return new ResponseEntity<>(invoices1,HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
@@ -27,7 +32,9 @@ public class InvoiceController implements InvoicesApi {
     @Override
     public ResponseEntity<String> deleteInvoicesById(String id) {
         try {
-            return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+            boolean response = invoiceService.deleteInvoice(Long.parseLong(id));
+            String response1= (response) ? "successfully deleted" : "some issues";
+            return new ResponseEntity<>(response1,HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
@@ -37,7 +44,10 @@ public class InvoiceController implements InvoicesApi {
     @Override
     public ResponseEntity<List<Invoices>> getInvoices(BigDecimal page, BigDecimal count, Date month, Integer year) {
         try {
-            return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+            int pageNumber = page.intValue();
+            int pageSize = count.intValue();
+            List<Invoices> invoices = invoiceService.getAllInvoices(pageNumber,pageSize);
+            return new ResponseEntity<>(invoices,HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
@@ -47,7 +57,8 @@ public class InvoiceController implements InvoicesApi {
     @Override
     public ResponseEntity<PayRoll> getInvoicesById(String id) {
         try {
-            return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+            PayRoll PayRoll=invoiceService.getInvoiceById(Long.parseLong(id));
+            return new ResponseEntity<>(PayRoll, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
@@ -57,7 +68,8 @@ public class InvoiceController implements InvoicesApi {
     @Override
     public ResponseEntity<Invoices> updateInvoices(String id, Invoices invoices) {
         try {
-            return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+            Invoices invoices1= invoiceService.updateInvoice(Long.parseLong(id),invoices);
+            return new ResponseEntity<>(invoices1, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);

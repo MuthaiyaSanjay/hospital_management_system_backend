@@ -1,6 +1,6 @@
-package com.medicare.repository;
+package com.eaglecare.repository;
 
-import com.medicare.entity.ProfessionalInformationEntity;
+import com.eaglecare.entity.ProfessionalInformationEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

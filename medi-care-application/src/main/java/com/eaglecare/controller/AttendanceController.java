@@ -1,68 +1,165 @@
-package com.medicare.controller;
+package com.eaglecare.controller;
 
-import com.medicare.api.AttendanceApi;
-import com.medicare.model.*;
+import com.eaglecare.api.AttendanceApi;
+import com.eaglecare.exception.ResourceNotFoundException;
+import com.eaglecare.model.*;
+import com.eaglecare.service.LeaveApplicationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.server.ResponseStatusException;
 import java.util.Date;
 import java.util.List;
 
 @RestController
 public class AttendanceController implements AttendanceApi {
+
+    @Autowired
+    LeaveApplicationService leaveApplicationService;
+
     @Override
     public ResponseEntity<Void> applyLeave(LeaveApplication leaveApplication) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        try {
+            leaveApplicationService.applyLeave(leaveApplication);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public ResponseEntity<Void> approveLeave(Integer leaveApplicationId, LeaveApproval leaveApproval) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        try {
+            leaveApproval.setLeaveApplicationId(Long.valueOf(leaveApplicationId));
+            leaveApplicationService.approveLeave(leaveApproval);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public ResponseEntity<CheckInCheckOut> checkIn(Integer userId) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        try {
+            CheckInCheckOut check = leaveApplicationService.checkInService(Long.valueOf(userId));
+            return new ResponseEntity<>(check, HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public ResponseEntity<CheckInCheckOut> checkOut(Integer userId) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        try {
+            CheckInCheckOut check = leaveApplicationService.checkOutService(Long.valueOf(userId));
+            return new ResponseEntity<>(check, HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public ResponseEntity<Void> createHolidayDetails(HolidayConfiguration holidayConfiguration) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        try {
+            HolidayConfiguration holidayDetails = leaveApplicationService.createHolidayDetails(holidayConfiguration);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public ResponseEntity<CheckInCheckOut> getCheckInAndOutDetails(Integer userId, Date date) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        try {
+            CheckInCheckOut checkInAndOutDetails = leaveApplicationService.getCheckInAndOutDetails(Long.valueOf(userId),date);
+            return new ResponseEntity<>(checkInAndOutDetails, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public ResponseEntity<List<HolidayConfiguration>> getHolidayDetails() {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-    }
-
-    @Override
-    public ResponseEntity<LeaveAllocation> getLeaveAllicationByUser(Integer id) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-    }
+        try {
+            List<HolidayConfiguration> holidayDetails = leaveApplicationService.getHolidayDetails();
+            return new ResponseEntity<>(holidayDetails, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }    }
 
     @Override
     public ResponseEntity<List<LeaveApplication>> getLeaveApplicaitons() {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-    }
-
-    @Override
-    public ResponseEntity<Void> createLeaveAllcoationForUsers(LeaveAllocation leaveAllocation) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        try {
+            List<LeaveApplication> leave = leaveApplicationService.getLeaveApplications();
+            return new ResponseEntity<>(leave, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public ResponseEntity<LeaveApplication> getLeaveDetailsById(Integer id) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        try {
+            LeaveApplication leave = leaveApplicationService.getLeaveDetailsById(Long.valueOf(id));
+            return new ResponseEntity<>(leave, HttpStatus.OK);
+        } catch (ResponseStatusException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Void> createLeaveAllcoationForUsers(LeaveAllocation leaveAllocation) {
+        try {
+            LeaveAllocation leaveAllocation1 = leaveApplicationService.createLeaveAllocationForUsers(leaveAllocation);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<LeaveAllocation> getLeaveAllicationByUser(Integer id) {
+        try {
+            LeaveAllocation userLeaveAllocation = leaveApplicationService.getLeaveAllicationByUser(Long.valueOf(id));
+            return new ResponseEntity<>(userLeaveAllocation, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Errors : " + e);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

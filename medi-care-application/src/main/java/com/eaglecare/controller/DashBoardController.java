@@ -1,7 +1,7 @@
-package com.medicare.controller;
+package com.eaglecare.controller;
 
-import com.medicare.api.DashboardApi;
-import com.medicare.model.Summary;
+import com.eaglecare.api.DashboardApi;
+import com.eaglecare.model.Summary;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;

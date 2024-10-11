@@ -1,8 +1,8 @@
-package com.medicare.service;
+package com.eaglecare.service;
 
-import com.medicare.entity.*;
-import com.medicare.model.*;
-import com.medicare.repository.*;
+import com.eaglecare.entity.*;
+import com.eaglecare.model.*;
+import com.eaglecare.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -258,7 +258,7 @@ jsons for example recent
         "last_name": "Kumar",
         "role": {
             "name": "Doctor",
-            "description": "Healthmedicare provider"
+            "description": "Healthcare provider"
         },
         "gender": "Male",
         "employment_details": {
@@ -300,7 +300,7 @@ jsons for example recent
         "last_name": "Sharma",
         "role": {
             "name": "Nurse",
-            "description": "Healthmedicare support staff"
+            "description": "Healthcare support staff"
         },
         "gender": "Female",
         "employment_details": {
@@ -469,13 +469,13 @@ users json
         "last_name": "Gupta",
         "role": {
             "name": "Nurse",
-            "description": "Healthmedicare professional providing patient medicare"
+            "description": "Healthcare professional providing patient care"
         },
         "gender": "FeMale",
         "employment_details": {
             "joining_date": "2022-06-01T09:00:00Z",
             "relieving_date": "2025-05-31T17:00:00Z",
-            "department": "emergency_medicare",
+            "department": "emergency_care",
             "salary": 75000.00,
             "payroll": {
                 "payment_date": "2022-06-01T09:00:00Z",
@@ -505,13 +505,13 @@ users json
         "last_name": "Mehta",
         "role": {
             "name": "Nurse",
-            "description": "Provides medicare and support to patients"
+            "description": "Provides care and support to patients"
         },
         "gender": "Male",
         "employment_details": {
             "joining_date": "2023-01-15T08:00:00Z",
             "relieving_date": "2026-01-14T17:00:00Z",
-            "department": "Intensive medicare",
+            "department": "Intensive Care",
             "salary": 80000.00,
             "payroll": {
                 "payment_date": "2023-01-15T08:00:00Z",
@@ -541,7 +541,7 @@ users json
         "last_name": "Rani",
         "role": {
             "name": "Nurse",
-            "description": "medicares for patients and assists doctors"
+            "description": "Cares for patients and assists doctors"
         },
         "gender": "FeMale",
         "employment_details": {
@@ -577,7 +577,7 @@ users json
         "last_name": "Kumar",
         "role": {
             "name": "Nurse",
-            "description": "Provides medical medicare and support"
+            "description": "Provides medical care and support"
         },
         "gender": "Male",
         "employment_details": {

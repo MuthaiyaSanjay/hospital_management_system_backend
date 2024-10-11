@@ -28,7 +28,7 @@ dependencies {
 	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.17.2'
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.6.0'
 
-	
+
 	/**Other Jars*****/
 	implementation 'org.postgresql:postgresql:42.5.4'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
@@ -47,9 +47,9 @@ task generateOpenApi(type: org.openapitools.generator.gradle.plugin.tasks.Genera
 	generatorName = 'spring'
 	inputSpec = "$projectDir/src/main/resources/openapi.yaml"
 	outputDir = "$projectDir/generated"
-	apiPackage = 'com.medicare.api'
-	modelPackage = 'com.medicare.model'
-	invokerPackage = 'com.medicare.invoker'
+	apiPackage = 'com.eaglecare.api'
+	modelPackage = 'com.eaglecare.model'
+	invokerPackage = 'com.eaglecare.invoker'
 	configOptions = [
 			dateLibrary: 'java17',
 			interfaceOnly: 'true',
@@ -57,7 +57,7 @@ task generateOpenApi(type: org.openapitools.generator.gradle.plugin.tasks.Genera
 			useSwaggerUI: 'true',
 			modelNameSuffix: 'DTO',
 			notNullJacksonAnnotation: 'false',
-			groupId: 'com.medicare',
+			groupId: 'com.eaglecare',
 			useTags: 'true'
 	]
 }

@@ -1,8 +1,7 @@
 openapi: 3.0.3
 info:
   title: Hospital Management System
-  description: |-
-    This helps to manage the hospital
+  description: This helps to manage the hospital
   termsOfService: http://swagger.io/terms/
   contact:
     email: aravind@monkeeys.com
@@ -64,7 +63,7 @@ paths:
                 properties:
                   status:
                     type: string
-                    example: 'UP'
+                    example: UP
                   timestamp:
                     type: string
                     format: date-time
@@ -239,7 +238,7 @@ paths:
             application/json:
               schema:
                 type: string
-                example: "Doctor removed successfully"
+                example: Doctor removed successfully
         '400':
           description: Invalid user id
   /v1/api/patients:
@@ -393,7 +392,7 @@ paths:
             application/json:
               schema:
                 type: string
-                example: "Doctor removed successfully"
+                example: Doctor removed successfully
         '400':
           description: Invalid user id
   /v1/api/user:
@@ -547,7 +546,7 @@ paths:
             application/json:
               schema:
                 type: string
-                example: "User removed successfully"
+                example: User removed successfully
         '400':
           description: Invalid user id
   /v1/api/user/change-password/{id}:
@@ -589,7 +588,7 @@ paths:
             application/json:
               schema:
                 type: string
-                example: "Password changed successfully"
+                example: Password changed successfully
         '400':
           description: Invalid user id
   /v1/api/role:
@@ -727,7 +726,7 @@ paths:
             application/json:
               schema:
                 type: string
-                example: "User removed successfully"
+                example: User removed successfully
         '400':
           description: Invalid Role id
   /v1/api/appointments:
@@ -784,7 +783,7 @@ paths:
           schema:
             type: string
             format: date
-            example: '12-31-2024'
+            example: 12-31-2024
         - name: patientId
           in: query
           description: Patient ID
@@ -898,7 +897,7 @@ paths:
             application/json:
               schema:
                 type: string
-                example: "Appointment removed successfully"
+                example: Appointment removed successfully
         '400':
           description: Invalid Appointment id
   /v1/api/payroll:
@@ -1002,7 +1001,7 @@ paths:
             application/json:
               schema:
                 type: string
-                example: "PayRoll removed successfully"
+                example: PayRoll removed successfully
         '400':
           description: Invalid PayRoll id
   /v1/api/payroll-dash-summary:
@@ -1319,7 +1318,7 @@ paths:
             application/json:
               schema:
                 type: string
-                example: "Invoices removed successfully"
+                example: Invoices removed successfully
         '400':
           description: Invalid Invoices id
   /v1/api/payments:
@@ -1400,7 +1399,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Doctor'
+                  $ref: '#/components/schemas/Payments'
         '400':
           description: Invalid user id
   /v1/api/payments/{id}:
@@ -1481,7 +1480,7 @@ paths:
             application/json:
               schema:
                 type: string
-                example: "Payments removed successfully"
+                example: Payments removed successfully
         '400':
           description: Invalid Payments id
   /v1/api/payments/by-invoice:
@@ -1581,7 +1580,7 @@ paths:
             type: integer
       responses:
         '200':
-          description:  leave allocation of user
+          description: leave allocation of user
           content:
             application/json:
               schema:
@@ -1752,7 +1751,7 @@ components:
           example: 10
         current_month_cxpense:
           type: number
-          example: 15963.50
+          example: 15963.5
         pending_payaments:
           type: number
           example: 10
@@ -1881,12 +1880,12 @@ components:
         appointment_date:
           type: string
           format: date-time
-          pattern: "^(\\d{4})-(\\d{2})-(\\d{2})T((\\d{2}):(\\d{2}):(\\d{2}))\\.(\\d{3})Z$"
-          description: "Appointment Booking Date"
-          example: "2024-11-05T00:00:00Z"
+          pattern: ^(\d{4})-(\d{2})-(\d{2})T((\d{2}):(\d{2}):(\d{2}))\.(\d{3})Z$
+          description: Appointment Booking Date
+          example: '2024-11-05T00:00:00Z'
         appointment_time:
           type: string
-          example: "10:00 AM"
+          example: 10:00 AM
         patient:
           $ref: '#/components/schemas/Patients'
         doctor:
@@ -1902,7 +1901,7 @@ components:
           example: ROLE_USER
         description:
           type: string
-          example: "User role"
+          example: User role
     EmploymentDetails:
       type: object
       properties:
@@ -1912,18 +1911,18 @@ components:
         joining_date:
           type: string
           format: date-time
-          pattern: "^(\\d{4})-(\\d{2})-(\\d{2})T((\\d{2}):(\\d{2}):(\\d{2}))\\.(\\d{3})Z$"
-          description: "User joining date."
-          example: "2024-11-05T00:00:00Z"
+          pattern: ^(\d{4})-(\d{2})-(\d{2})T((\d{2}):(\d{2}):(\d{2}))\.(\d{3})Z$
+          description: User joining date.
+          example: '2024-11-05T00:00:00Z'
         relieving_date:
           type: string
           format: date-time
-          pattern: "^(\\d{4})-(\\d{2})-(\\d{2})T((\\d{2}):(\\d{2}):(\\d{2}))\\.(\\d{3})Z$"
-          description: "User joining date."
-          example: "2024-11-05T00:00:00Z"
+          pattern: ^(\d{4})-(\d{2})-(\d{2})T((\d{2}):(\d{2}):(\d{2}))\.(\d{3})Z$
+          description: User joining date.
+          example: '2024-11-05T00:00:00Z'
         department:
           type: string
-          example: "CLINIC_STAFF"
+          example: CLINIC_STAFF
         salary:
           type: number
           example: 18500
@@ -1936,13 +1935,13 @@ components:
           type: string
           example: 4acd0b30-0ac1-4d0f-938b-c7b86d804375
         user:
-          $ref: '#/components/schemas/UserBasiInfo'
+          type: string
         payment_date:
           type: string
           format: date-time
-          pattern: "^(\\d{4})-(\\d{2})-(\\d{2})T((\\d{2}):(\\d{2}):(\\d{2}))\\.(\\d{3})Z$"
-          description: "Appointment Booking Date"
-          example: "2024-11-05T00:00:00Z"
+          pattern: ^(\d{4})-(\d{2})-(\d{2})T((\d{2}):(\d{2}):(\d{2}))\.(\d{3})Z$
+          description: Appointment Booking Date
+          example: '2024-11-05T00:00:00Z'
         gross_amount:
           type: number
           format: float
@@ -1980,9 +1979,11 @@ components:
           example: 10
         cross_salary:
           type: number
+          format: double
           example: 15000.63
         deductions:
           type: number
+          format: double
           example: 1596.32
         deduction_summary:
           type: array
@@ -1990,7 +1991,8 @@ components:
             $ref: '#/components/schemas/DeductionSummary'
         net_salary:
           type: number
-          example: 14899.90
+          format: double
+          example: 14899.9
         status:
           type: string
           example: APPROVED
@@ -2015,9 +2017,9 @@ components:
         invoice_date:
           type: string
           format: date-time
-          pattern: "^(\\d{4})-(\\d{2})-(\\d{2})T((\\d{2}):(\\d{2}):(\\d{2}))\\.(\\d{3})Z$"
-          description: "Invoice Date"
-          example: "2024-11-05T00:00:00Z"
+          pattern: ^(\d{4})-(\d{2})-(\d{2})T((\d{2}):(\d{2}):(\d{2}))\.(\d{3})Z$
+          description: Invoice Date
+          example: '2024-11-05T00:00:00Z'
         total_amount:
           type: number
           format: float
@@ -2035,7 +2037,9 @@ components:
         reference_id:
           type: number
           example: 158
-          description: user id or reference id of the table based on the type.If payroll its mean payroll history id other wise user id(vendor).
+          description: >-
+            user id or reference id of the table based on the type.If payroll
+            its mean payroll history id other wise user id(vendor).
         receiver_name:
           type: string
           example: aravind
@@ -2068,15 +2072,15 @@ components:
         payment_due_date:
           type: string
           format: date-time
-          pattern: "^(\\d{4})-(\\d{2})-(\\d{2})T((\\d{2}):(\\d{2}):(\\d{2}))\\.(\\d{3})Z$"
-          description: "Invoice Date"
-          example: "2024-11-05T00:00:00Z"
+          pattern: ^(\d{4})-(\d{2})-(\d{2})T((\d{2}):(\d{2}):(\d{2}))\.(\d{3})Z$
+          description: Invoice Date
+          example: '2024-11-05T00:00:00Z'
         payment_date:
           type: string
           format: date-time
-          pattern: "^(\\d{4})-(\\d{2})-(\\d{2})T((\\d{2}):(\\d{2}):(\\d{2}))\\.(\\d{3})Z$"
-          description: "Invoice Date"
-          example: "2024-11-05T00:00:00Z"
+          pattern: ^(\d{4})-(\d{2})-(\d{2})T((\d{2}):(\d{2}):(\d{2}))\.(\d{3})Z$
+          description: Invoice Date
+          example: '2024-11-05T00:00:00Z'
         amount:
           type: number
           format: float
@@ -2100,9 +2104,9 @@ components:
         change_date:
           type: string
           format: date-time
-          pattern: "^(\\d{4})-(\\d{2})-(\\d{2})T((\\d{2}):(\\d{2}):(\\d{2}))\\.(\\d{3})Z$"
-          description: "Invoice Date"
-          example: "2024-11-05T00:00:00Z"
+          pattern: ^(\d{4})-(\d{2})-(\d{2})T((\d{2}):(\d{2}):(\d{2}))\.(\d{3})Z$
+          description: Invoice Date
+          example: '2024-11-05T00:00:00Z'
         status:
           type: string
           example: UN_PAID
@@ -2118,7 +2122,7 @@ components:
           example: TDS
         amount:
           type: number
-          example: 1800.30
+          example: 1800.3
     HolidayConfiguration:
       type: object
       properties:
@@ -2127,7 +2131,7 @@ components:
           format: int64
         date:
           type: string
-          format: date
+          format: LocalDate
         description:
           type: string
     LeaveAllocation:
@@ -2166,7 +2170,10 @@ components:
           type: string
         status:
           type: string
-          enum: [PENDING, APPROVED, REJECTED]
+          enum:
+            - PENDING
+            - APPROVED
+            - REJECTED
     LeaveApproval:
       type: object
       properties:
@@ -2184,7 +2191,10 @@ components:
           format: date
         status:
           type: string
-          enum: [PENDING, APPROVED, REJECTED]
+          enum:
+            - PENDING
+            - APPROVED
+            - REJECTED
         comments:
           type: string
     CheckInCheckOut:
@@ -2198,14 +2208,10 @@ components:
           format: int64
         date:
           type: string
-          format: date
+          format: LocalDate
         check_in_time:
           type: string
           format: time
         check_out_time:
           type: string
           format: time
-          
-        
-      
-      

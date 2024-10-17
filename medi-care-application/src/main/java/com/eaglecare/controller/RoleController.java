@@ -1,6 +1,7 @@
 package com.eaglecare.controller;
 
 import com.eaglecare.api.RoleApi;
+import com.eaglecare.exception.CustomException;
 import com.eaglecare.model.Role;
 import com.eaglecare.service.RoleService;
 import com.sun.jdi.request.DuplicateRequestException;
@@ -25,10 +26,10 @@ public class RoleController implements RoleApi {
             return new ResponseEntity<>(role1, HttpStatus.CREATED);
         } catch (DuplicateRequestException e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+            throw new CustomException(HttpStatus.CONFLICT, e.getMessage());
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -40,7 +41,7 @@ public class RoleController implements RoleApi {
             return new ResponseEntity<>(res, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -51,7 +52,7 @@ public class RoleController implements RoleApi {
             return new ResponseEntity<>(role1, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -67,7 +68,7 @@ public class RoleController implements RoleApi {
             return new ResponseEntity<>(role1, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -78,10 +79,10 @@ public class RoleController implements RoleApi {
             return new ResponseEntity<>(role1, HttpStatus.OK);
         } catch (DuplicateRequestException e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+            throw new CustomException(HttpStatus.CONFLICT, e.getMessage());
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 }

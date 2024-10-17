@@ -1,6 +1,7 @@
 package com.eaglecare.controller;
 
 import com.eaglecare.api.PatientsApi;
+import com.eaglecare.exception.CustomException;
 import com.eaglecare.model.Patients;
 import com.eaglecare.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class PatientsController implements PatientsApi {
             return new ResponseEntity<>(patients1, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -37,7 +38,7 @@ public class PatientsController implements PatientsApi {
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error Occurring Delete Patients By Id : " + e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -52,7 +53,7 @@ public class PatientsController implements PatientsApi {
             return new ResponseEntity<>(patients, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error Occurring GetAllPatients : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -63,7 +64,7 @@ public class PatientsController implements PatientsApi {
             return new ResponseEntity<>(patients1, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -74,8 +75,7 @@ public class PatientsController implements PatientsApi {
             return new ResponseEntity<>(patients1, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
-
 }

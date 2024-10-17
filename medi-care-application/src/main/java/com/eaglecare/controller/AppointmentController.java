@@ -1,8 +1,10 @@
 package com.eaglecare.controller;
 
 import com.eaglecare.api.AppointmentApi;
+import com.eaglecare.exception.CustomException;
 import com.eaglecare.model.Appointment;
 import com.eaglecare.service.AppointmentService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +26,12 @@ public class AppointmentController implements AppointmentApi {
         try {
             Appointment appointmentDetails = appointmentService.createOrUpdateAppointment(appointment);
             return new ResponseEntity<>(appointmentDetails, HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            System.err.println("ID Not Found Book Appointment: " + e.getMessage());
+            throw new CustomException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
             System.err.println("Error retrieving Book Appointment: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -35,9 +40,12 @@ public class AppointmentController implements AppointmentApi {
         try {
             appointmentService.deleteById(Long.parseLong(id));
             return new ResponseEntity<>(id + " Appointment Deleted Successfully ", HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            System.err.println("ID Not Found Book Appointment: " + e.getMessage());
+            throw new CustomException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            System.err.println("Error Occurring Appointment Deleted: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            System.err.println("Error retrieving Book Appointment: " + e.getMessage());
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -46,12 +54,12 @@ public class AppointmentController implements AppointmentApi {
         try {
             Appointment appointmentDetails = appointmentService.findById(Long.parseLong(id));
             return new ResponseEntity<>(appointmentDetails, HttpStatus.OK);
-        } catch (ResponseStatusException e) {
-            System.err.println("Error Occurring Get Appointment ById : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }catch (Exception e) {
-            System.err.println("Error Occurring Get Appointment ById : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        } catch (EntityNotFoundException e) {
+            System.err.println("ID Not Found Book Appointment: " + e.getMessage());
+            throw new CustomException(HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Error retrieving Book Appointment: " + e.getMessage());
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -64,9 +72,12 @@ public class AppointmentController implements AppointmentApi {
             int count1 = bg2.intValue();
             List<Appointment> appointments = appointmentService.getAllAppointments(page1, count1);
             return new ResponseEntity<>(appointments, HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            System.err.println("ID Not Found Book Appointment: " + e.getMessage());
+            throw new CustomException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            System.err.println("Error Occurring Get Appointments : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            System.err.println("Error retrieving Book Appointment: " + e.getMessage());
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -76,9 +87,12 @@ public class AppointmentController implements AppointmentApi {
             appointment.setId(id);
             Appointment appointmentDetails = appointmentService.createOrUpdateAppointment(appointment);
             return new ResponseEntity<>(appointmentDetails, HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            System.err.println("ID Not Found Book Appointment: " + e.getMessage());
+            throw new CustomException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            System.err.println("Error Occurring UpdateAppointment : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            System.err.println("Error retrieving Book Appointment: " + e.getMessage());
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 }

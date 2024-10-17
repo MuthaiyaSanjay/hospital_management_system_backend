@@ -1,6 +1,7 @@
 package com.eaglecare.controller;
 
 import com.eaglecare.api.PaymentsApi;
+import com.eaglecare.exception.CustomException;
 import com.eaglecare.exception.ResourceNotFoundException;
 import com.eaglecare.model.Payments;
 import com.eaglecare.service.PaymentService;
@@ -24,18 +25,18 @@ public class PaymentController implements PaymentsApi {
             return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
     @Override
     public ResponseEntity<Payments> createPayments(Payments payments) {
         try {
-            Payments payments1=paymentService.createPayment(payments);
+            Payments payments1 = paymentService.createPayment(payments);
             return new ResponseEntity<>(payments1, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -46,7 +47,7 @@ public class PaymentController implements PaymentsApi {
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -61,29 +62,29 @@ public class PaymentController implements PaymentsApi {
             return new ResponseEntity<>(payments, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
     @Override
     public ResponseEntity<Payments> getPaymentsByInvoice(BigDecimal invoiceId) {
         try {
-            Payments payments=paymentService.getPaymentsByInvoices(Long.valueOf(String.valueOf(invoiceId)));
+            Payments payments = paymentService.getPaymentsByInvoices(Long.valueOf(String.valueOf(invoiceId)));
             return new ResponseEntity<>(payments, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
     @Override
     public ResponseEntity<Payments> updatePayments(String id, Payments payments) {
         try {
-            Payments payments1 = paymentService.updatePayment(Long.parseLong(id),payments);
+            Payments payments1 = paymentService.updatePayment(Long.parseLong(id), payments);
             return new ResponseEntity<>(payments1, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -94,10 +95,10 @@ public class PaymentController implements PaymentsApi {
             return new ResponseEntity<>(payments, HttpStatus.OK);
         } catch (ResourceNotFoundException e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }catch (Exception e) {
+            throw new CustomException(HttpStatus.BAD_REQUEST, e.getMessage());
+        } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 }

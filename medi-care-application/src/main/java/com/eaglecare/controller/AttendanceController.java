@@ -1,6 +1,7 @@
 package com.eaglecare.controller;
 
 import com.eaglecare.api.AttendanceApi;
+import com.eaglecare.exception.CustomException;
 import com.eaglecare.exception.ResourceNotFoundException;
 import com.eaglecare.model.*;
 import com.eaglecare.service.LeaveApplicationService;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+
 import java.util.Date;
 import java.util.List;
 
@@ -24,11 +26,11 @@ public class AttendanceController implements AttendanceApi {
             leaveApplicationService.applyLeave(leaveApplication);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (ResourceNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new CustomException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new CustomException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -39,11 +41,11 @@ public class AttendanceController implements AttendanceApi {
             leaveApplicationService.approveLeave(leaveApproval);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new CustomException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (ResourceNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new CustomException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -53,11 +55,11 @@ public class AttendanceController implements AttendanceApi {
             CheckInCheckOut check = leaveApplicationService.checkInService(Long.valueOf(userId));
             return new ResponseEntity<>(check, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new CustomException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (ResourceNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new CustomException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -67,11 +69,11 @@ public class AttendanceController implements AttendanceApi {
             CheckInCheckOut check = leaveApplicationService.checkOutService(Long.valueOf(userId));
             return new ResponseEntity<>(check, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new CustomException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (ResourceNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new CustomException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -81,25 +83,25 @@ public class AttendanceController implements AttendanceApi {
             HolidayConfiguration holidayDetails = leaveApplicationService.createHolidayDetails(holidayConfiguration);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new CustomException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (ResourceNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new CustomException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
     @Override
     public ResponseEntity<CheckInCheckOut> getCheckInAndOutDetails(Integer userId, Date date) {
         try {
-            CheckInCheckOut checkInAndOutDetails = leaveApplicationService.getCheckInAndOutDetails(Long.valueOf(userId),date);
+            CheckInCheckOut checkInAndOutDetails = leaveApplicationService.getCheckInAndOutDetails(Long.valueOf(userId), date);
             return new ResponseEntity<>(checkInAndOutDetails, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new CustomException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (ResourceNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new CustomException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -109,8 +111,9 @@ public class AttendanceController implements AttendanceApi {
             List<HolidayConfiguration> holidayDetails = leaveApplicationService.getHolidayDetails();
             return new ResponseEntity<>(holidayDetails, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }    }
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
 
     @Override
     public ResponseEntity<List<LeaveApplication>> getLeaveApplicaitons() {
@@ -118,7 +121,7 @@ public class AttendanceController implements AttendanceApi {
             List<LeaveApplication> leave = leaveApplicationService.getLeaveApplications();
             return new ResponseEntity<>(leave, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -128,9 +131,9 @@ public class AttendanceController implements AttendanceApi {
             LeaveApplication leave = leaveApplicationService.getLeaveDetailsById(Long.valueOf(id));
             return new ResponseEntity<>(leave, HttpStatus.OK);
         } catch (ResponseStatusException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new CustomException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -140,11 +143,11 @@ public class AttendanceController implements AttendanceApi {
             LeaveAllocation leaveAllocation1 = leaveApplicationService.createLeaveAllocationForUsers(leaveAllocation);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new CustomException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (ResourceNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new CustomException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -155,11 +158,11 @@ public class AttendanceController implements AttendanceApi {
             return new ResponseEntity<>(userLeaveAllocation, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             System.err.println("Errors : " + e);
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new CustomException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (ResourceNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new CustomException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 }

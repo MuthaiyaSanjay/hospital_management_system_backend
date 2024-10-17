@@ -50,21 +50,29 @@ public class Userservice {
     @Autowired
     ModelMapper modelMapper;
 
+
     @Transactional
     public UserPayload save(UserPayload userPayload) {
         try {
             System.out.println(userPayload.toString());
-            System.out.println("Enter into the doctor service");
-            UserBasicInfoEntity userBasicInfoEntity = modelMapper.map(userPayload, UserBasicInfoEntity.class);
+            System.out.println("Entering the doctor service");
+
             UserBasicInfoEntity user = doctorService.dtoToEntity(userPayload.getBasicInfo());
-            roleRepo.save(user.getRole());
-            employmentDetailsRepo.save(user.getEmploymentDetails());
+
+            if (user.getRole() != null) {
+                roleRepo.save(user.getRole());
+            }
+            if (user.getEmploymentDetails() != null) {
+                EmploymentDetailsEntity employmentDetails = user.getEmploymentDetails();
+                if (employmentDetails.getPayroll() != null) {
+                    payRollRepo.save(employmentDetails.getPayroll());
+                }
+                employmentDetailsRepo.save(employmentDetails);
+            }
             userBasicInfoRepo.save(user);
-            user.setEmploymentDetails(user.getEmploymentDetails());
-            user.setRole(user.getRole());
-            user.getEmploymentDetails().setPayroll(user.getEmploymentDetails().getPayroll());
-            if (userBasicInfoEntity.getContact() != null) {
-                ContactEntity contactEntity = userBasicInfoEntity.getContact();
+
+            if (userPayload.getContact() != null) {
+                ContactEntity contactEntity = modelMapper.map(userPayload.getContact(), ContactEntity.class);
                 if (contactEntity.getAddress() != null) {
                     AddressEntity addressEntity = contactEntity.getAddress();
                     addressEntity = addressRepo.save(addressEntity);
@@ -78,8 +86,7 @@ public class Userservice {
 
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println(" Exception " + e.getMessage());
-            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, "An error occurred: " + e.getMessage());
         }
     }
 

@@ -24,6 +24,9 @@ public class DoctorController implements DoctorApi {
             System.out.println("--doctor values -----" + doctor);
             Doctor res = doctorService.saveDoctor(doctor);
             return ResponseEntity.ok(res);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error creating doctor: " + e.getMessage());
+            throw new CustomException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (Exception e) {
             System.err.println("Error creating doctor: " + e.getMessage());
             throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
@@ -38,11 +41,10 @@ public class DoctorController implements DoctorApi {
             return new ResponseEntity<>("Delete success", HttpStatus.OK);
         } catch (NumberFormatException e) {
             System.err.println("Invalid ID format: " + e.getMessage());
-            return ResponseEntity.badRequest().body("Invalid ID format");
+            throw new CustomException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (Exception e) {
-            // Log other exceptions
             System.err.println("Error deleting doctor: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting doctor");
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -57,7 +59,7 @@ public class DoctorController implements DoctorApi {
             return new ResponseEntity<>(doctors, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("Error retrieving doctors: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -70,10 +72,10 @@ public class DoctorController implements DoctorApi {
         } catch (NumberFormatException e) {
             // Log the exception for invalid ID format
             System.err.println("Invalid ID format: " + e.getMessage());
-            return ResponseEntity.badRequest().body(null);
+            throw new CustomException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (Exception e) {
             System.err.println("Error retrieving doctor: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -85,7 +87,7 @@ public class DoctorController implements DoctorApi {
             return ResponseEntity.ok(res);
         } catch (Exception e) {
             System.err.println("Error updating doctor: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 }

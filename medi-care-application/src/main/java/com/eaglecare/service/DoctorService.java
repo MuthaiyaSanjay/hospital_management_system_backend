@@ -83,10 +83,14 @@ public class DoctorService {
             }
             DoctorEntity savedDoctorEntity = doctorRepo.save(doctorEntity);
             return modelMapper.map(savedDoctorEntity, Doctor.class);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            System.out.println(" Exception " + e.getMessage());
+            throw new CustomException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(" Exception " + e.getMessage());
-            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage());
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 

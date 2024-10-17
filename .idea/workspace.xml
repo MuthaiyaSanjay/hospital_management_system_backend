@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a734377d-e209-4cac-878b-44236026ebf8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/configuration/AppConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/CheckInCheckOutEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/DeductionSummaryEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/HolidayEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/InvoiceEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/LeaveAllocationEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/LeaveApplicationEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/LeaveApprovalEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/PayRollGenerationHistoryEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/PaymentsEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/exception/CustomException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/exception/ResourceNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/CheckInCheckOutRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/DeductionSummaryRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/HolidayEntityRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/InvoiceEntityRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/LeaveAllocationEntityRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/LeaveApplicationEntityRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/LeaveApprovalRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/PayRollGeneraionHistoryRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/PaymentsEntityRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/service/InvoiceService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/service/LeaveApplicationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/service/PaymentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/service/PayrollCalculator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/service/PayrollService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/service/RoleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/.openapi-generator/FILES" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/.openapi-generator/FILES" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/ApiUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/ApiUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/AppointmentApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/AppointmentApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/AttendanceApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/AttendanceApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/BillingHistoryApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/BillingHistoryApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/DashboardApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/DashboardApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/DoctorApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/DoctorApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/HealthApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/HealthApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/InvoicesApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/InvoicesApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/PatientsApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/PatientsApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/PayRollApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/PayRollApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/PaymentsApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/PaymentsApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/RoleApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/RoleApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/UsersApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/api/UsersApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/Address.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/Appointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/Appointment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/BillingHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/BillingHistory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/CheckInCheckOut.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/CheckInCheckOut.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/Contact.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/Contact.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/DeductionSummary.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/DeductionSummary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/Doctor.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/Doctor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/EmploymentDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/EmploymentDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/GetHealth200Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/GetHealth200Response.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/GradeWiseSummary.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/GradeWiseSummary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/HolidayConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/HolidayConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/Invoices.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/Invoices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/LeaveAllocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/LeaveAllocation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/LeaveApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/LeaveApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/LeaveApproval.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/LeaveApproval.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/Patients.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/Patients.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/PayRoll.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/PayRoll.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/PayRollGenerationHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/PayRollGenerationHistory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/PayRollSummary.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/PayRollSummary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/Payments.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/Payments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/ProfessionalInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/ProfessionalInformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/Summary.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/Summary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/UserBasiInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/UserBasiInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/UserPayload.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/generated/src/main/java/com/eaglecare/model/UserPayload.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/CareApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/CareApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/configuration/ModelMapperConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/configuration/ModelMapperConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/configuration/SpringDocConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/configuration/SpringDocConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/AppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/AppointmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/AttendanceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/AttendanceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/BillingHistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/BillingHistoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/DashBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/DashBoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/DoctorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/DoctorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/HealthCheckController.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/HealthCheckController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/InvoiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/InvoiceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/PatientsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/PatientsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/PaymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/PayrollController.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/PayrollController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/RoleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/AddressCategoryEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/AddressCategoryEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/AddressEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/AddressEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/AppointmentEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/AppointmentEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/ContactEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/ContactEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/DoctorEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/DoctorEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/EmploymentDetailsEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/EmploymentDetailsEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/GenderEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/GenderEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/PayRollEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/PayRollEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/ProfessionalInformationEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/ProfessionalInformationEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/RoleEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/RoleEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/UserBasicInfoEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/entity/UserBasicInfoEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/AddressRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/AddressRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/AppointmentRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/AppointmentRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/ContactRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/ContactRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/DoctorRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/DoctorRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/EmploymentDetailsRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/EmploymentDetailsRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/PayRollRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/PayRollRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/ProfessionalInformationRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/ProfessionalInformationRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/RoleRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/RoleRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/UserBasicInfoRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/repository/UserBasicInfoRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/service/AppointmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/service/AppointmentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/service/DoctorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/service/DoctorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/service/PatientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/service/PatientService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/service/Userservice.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/java/com/eaglecare/service/Userservice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/resources/copy.txt" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/resources/copy.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/main/resources/openapi.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/main/resources/openapi.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medi-care-application/src/test/java/com/eaglecare/CareApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/medi-care-application/src/test/java/com/eaglecare/CareApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/test.iml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2nIusFShliNkpBFKM4jSpykX8OG" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "dev__1",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/sanjay/java/hospital_management_system_backend/medi-care-application"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\sanjay\java\hospital_management_system_backend\medi-care-application" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a734377d-e209-4cac-878b-44236026ebf8" name="Changes" comment="" />
+      <created>1728673115827</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1728673115827</updated>
+    </task>
+    <servers />
+  </component>
+</project>
